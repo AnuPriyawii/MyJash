@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#40000000"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    tools:context="com.wiinnova.myjash.AppUtil.PopUpSearchCategory">
+
+
+    <LinearLayout
+        android:id="@+id/lytMain"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".8"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:weightSum="1">
+
+        <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fillViewport="true"-->
+        <!--android:scrollbars="none">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight=".7"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/txttitle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerInParent="true"
+                android:layout_weight=".12"
+                android:background="@drawable/home_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="MYJASH"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".76"
+                android:background="#fff">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:scrollbars="none">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ebebeb"
+                        android:scrollbars="none" />
+                </ScrollView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtOkay"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".12"
+                android:background="@drawable/home_bg"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="OK"
+                android:textColor="#fff" />
+        </LinearLayout>
+        <!--</ScrollView>-->
+    </LinearLayout>
+</LinearLayout>

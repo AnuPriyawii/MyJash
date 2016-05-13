@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">MyJash</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="facebook_app_id">1707551846189636</string>
+    <string name="twitter_consumer_key">BBQAUAVKYzmYtvEcNhUEvGiKd</string>
+    <string name="twitter_consumer_secret">byZzHPxE1tkGmnPEj5zUyc7MG464Q1LgNRcwbBJV1Ap86575os</string>
+    <string-array name="arrIcon">
+        <item>@drawable/product_gray</item>
+        <item>@drawable/location_gray</item>
+        <item>@drawable/category_gray</item>
+        <item>@drawable/company_gray</item>
+        <item>@drawable/brand_gray</item>
+        <item>@drawable/mall_gray</item>
+    </string-array>
+    <integer name="tag1">1</integer>
+    <integer name="tag2">2</integer>
+    <integer name="tag3">3</integer>
+    <integer name="tag4">4</integer>
+    <integer name="tag5">5</integer>
+
+    <string name="crash">Sorry MyJash crashed!!!</string>
+</resources>
