@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -103,6 +104,9 @@ public class DashBoard extends Fragment {
                 imageLoader.get(url, ImageLoader.getImageListener(
                         networkImageView, R.drawable.logo_round, R.drawable.logo));
                 networkImageView.setImageUrl(url, imageLoader);
+                networkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                networkImageView.setLayoutParams(params);
                 arrUrl[i] = url;
                 viewPager.addView(networkImageView);
 

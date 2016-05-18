@@ -20,6 +20,7 @@ import com.wiinnova.myjash.R;
 
 import java.util.ArrayList;
 
+import com.wiinnova.myjash.adapter.ArrayAdapterBrand;
 import com.wiinnova.myjash.adapter.ArrayAdpterCategory;
 import com.wiinnova.myjash.model.ProductModel;
 
@@ -30,7 +31,7 @@ import org.json.JSONObject;
 public class Location extends Fragment {
     private static ArrayList<ProductModel> arrProd = new ArrayList<>();
     private static RecyclerView recyclerView;
-    private static ArrayAdpterCategory adapterProduct;
+    private static ArrayAdapterBrand adapterProduct;
     static Activity activity;
     static Location fragment;
     static SwipeRefreshLayout swipeRefreshLayout;
@@ -81,7 +82,7 @@ public class Location extends Fragment {
                 e.printStackTrace();
             }
         }
-        adapterProduct = new ArrayAdpterCategory(arrProd, activity, "location");
+        adapterProduct = new ArrayAdapterBrand(arrProd,activity);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

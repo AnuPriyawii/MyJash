@@ -214,11 +214,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                                                     edtUserName.setText(name);
                                                     edtPassword.setText(email);
 
-                                                    mSharedPreferences = getApplicationContext().getSharedPreferences(
+                                                    Map<String, String> params = new HashMap<String, String>();
+                                                    String[] arrName = name.split(" ");
+                                                    if (arrName.length > 0)
+                                                        params.put("fName", arrName[0]);
+                                                    if (arrName.length > 1)
+                                                        params.put("lName", arrName[1]);
+                                                    params.put("email", email);
+                                                    params.put("source", "2");/*2 represents facebook*/
+                                                    new InternetService(activity).downloadDataByPOST("socailLogin", params, "login");
+
+                                                   /* mSharedPreferences = getApplicationContext().getSharedPreferences(
                                                             "LOGIN", 0);
                                                     SharedPreferences.Editor editor = mSharedPreferences.edit();
                                                     editor.putString("NAME", name);
-                                                    editor.commit();
+                                                    editor.commit();*/
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -293,6 +303,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                         .getQueryParameter(URL_TWITTER_OAUTH_VERIFIER);
                 Log.d("isTwitterLoggedInAlr", verifier + " f");
 
+
+
                 new AsyncTask<String, String, String>() {
                     String name, email;
 
@@ -331,7 +343,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                             User user = twitter.showUser(userID);
                             name = user.getName();
 
-
                             Log.d("isTwitterLoggedInAlr", name + " f");
                         } catch (TwitterException ex) {
                             // Check log for login errors
@@ -346,9 +357,20 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                         edtUserName.setText("");
                         edtPassword.setText("");
                         edtUserName.setText(name);
-                        SharedPreferences.Editor editor = mSharedPreferences.edit();
+
+                        Map<String, String> params = new HashMap<String, String>();
+                        String[] arrName = name.split(" ");
+                        if (arrName.length > 0)
+                            params.put("fName", arrName[0]);
+                        if (arrName.length > 1)
+                            params.put("lName", arrName[1]);
+                        params.put("email", email);
+                        params.put("source", "4");/*4 represents twitter*/
+                        new InternetService(activity).downloadDataByPOST("socailLogin", params, "login");
+
+                        /*SharedPreferences.Editor editor = mSharedPreferences.edit();
                         editor.putString("NAME", name);
-                        editor.commit();
+                        editor.commit();*/
                     }
                 }.execute();
 
@@ -594,9 +616,18 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
             edtPassword.setText("");
             edtUserName.setText(personName);
             edtPassword.setText(email);
-            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            Map<String, String> params = new HashMap<String, String>();
+            String[] arrName = personName.split(" ");
+            if (arrName.length > 0)
+                params.put("fName", arrName[0]);
+            if (arrName.length > 1)
+                params.put("lName", arrName[1]);
+            params.put("email", email);
+            params.put("source", "3");/*3 represents Googleplus*/
+            new InternetService(activity).downloadDataByPOST("socailLogin", params, "login");
+            /*SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putString("NAME", personName);
-            editor.commit();
+            editor.commit();*/
         } else {
             Log.d("ResultGet", "null");
         }
@@ -675,6 +706,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.Connecti
                 SharedPreferences.Editor editor = mSharedPreferences.edit();
                 editor.putString("NAME", edtUserName.getText().toString());
                 editor.commit();
+                activity.finish();
             }
         } catch (JSONException e) {
             e.printStackTrace();

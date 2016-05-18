@@ -71,6 +71,7 @@ public class Product extends Fragment {
                 search();
             } else if (type.equals("category")) {
                 clearSearchVariables();
+                Log.d("CategoryId", Category.categoryId + "dfg");
                 Search.categoryId = Category.categoryId;
                 search();
             } else if (type.equals("brand")) {
@@ -136,7 +137,7 @@ public class Product extends Fragment {
             if (json.getString("response").contains("Success")) {
                 arrProd.clear();
                 JSONArray jsonArray = new JSONArray(json.getString("result"));
-                for (int i = jsonArray.length(); i >0; i--) {
+                for (int i = jsonArray.length() - 1; i >= 0; i--) {
                     try {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -159,7 +160,7 @@ public class Product extends Fragment {
                 Log.d("TypeGet", arrProd.size() + " f");
                 if (arrProd.size() > 0) {
                     if (isArrayEmpty) {
-                        adapterProduct = new ArrayAdapterProduct(arrProd,activity);
+                        adapterProduct = new ArrayAdapterProduct(arrProd, activity);
                         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());

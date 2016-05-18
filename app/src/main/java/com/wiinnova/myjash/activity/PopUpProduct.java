@@ -73,7 +73,7 @@ public class PopUpProduct extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollView);
 
         scrollView.fullScroll(ScrollView.FOCUS_UP);
-        scrollView.smoothScrollTo(0,0);
+        scrollView.smoothScrollTo(0, 0);
 
         arrBranches = new ArrayList<>();
 
@@ -132,8 +132,8 @@ public class PopUpProduct extends AppCompatActivity {
         }
 
         /*Display branches*/
-        for (int i = 0; i < 10; i++)
-            arrBranches.add("Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\nInteger quis vestibulum odio,\neget ultrices enim." + i);
+//        for (int i = 0; i < 10; i++)
+//            arrBranches.add("Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\nInteger quis vestibulum odio,\neget ultrices enim." + i);
 
         adapterBranches = new ArrayAdapterBranches(this, arrBranches);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

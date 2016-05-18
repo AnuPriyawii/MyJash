@@ -19,6 +19,7 @@ import com.wiinnova.myjash.activity.MainContainer;
 import com.wiinnova.myjash.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.wiinnova.myjash.adapter.ArrayAdpterCategory;
 import com.wiinnova.myjash.model.ProductModel;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 public class Category extends Fragment {
     private static ArrayList<ProductModel> arrProd = new ArrayList<>();
+    private static List<ArrayList> arrSub;
     private static RecyclerView recyclerView;
     private static ArrayAdpterCategory adapterProduct;
     static Activity activity;
@@ -58,8 +60,10 @@ public class Category extends Fragment {
 
     public static void refreshAdapter(JSONArray jsonArray) {
         arrProd = new ArrayList<>();
+        arrSub = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
+                ArrayList<ProductModel> arrSubprod=new ArrayList<>();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 ProductModel model = new ProductModel();
@@ -67,11 +71,25 @@ public class Category extends Fragment {
                 model.setId(jsonObject.getInt("category_id"));
                 arrProd.add(model);
 
+                /*Sub category*/
+                if (jsonObject.getString("subCategory") != null) {
+                    arrSubprod = new ArrayList<>();
+                    JSONArray jsonSub = new JSONArray(jsonObject.getString("subCategory"));
+                    for (int j = 0; j < jsonSub.length(); j++) {
+                        JSONObject jsub = jsonSub.getJSONObject(j);
+                        model = new ProductModel();
+                        model.setName(jsub.getString("category_name"));
+                        model.setId(jsub.getInt("category_id"));
+                        arrSubprod.add(model);
+                    }
+                }
+                arrSub.add(arrSubprod);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        adapterProduct = new ArrayAdpterCategory(arrProd, activity, "category");
+        adapterProduct = new ArrayAdpterCategory(arrProd, activity, "category", arrSub);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

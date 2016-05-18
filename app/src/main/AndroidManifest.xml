@@ -20,13 +20,7 @@
         <activity
             android:name=".activity.SplashScreen"
             android:noHistory="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.MainContainer"
             android:screenOrientation="portrait" />
@@ -80,7 +74,13 @@
             android:name=".activity.ContactUs"
             android:launchMode="singleTop" />
         <activity android:name=".activity.PopUpProduct" />
-        <activity android:name=".activity.GoogleMap"></activity>
+        <activity android:name=".activity.GoogleMap">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
