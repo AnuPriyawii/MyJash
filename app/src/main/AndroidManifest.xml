@@ -45,7 +45,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDK7L-KlbR4tjnAxFT0v1q9KMXPbW1cT5E" />
+            android:value="AIzaSyAAKUAdHoX7AaW91nAZlXjZR5q-FTDn5sk" />
 
         <activity
             android:name=".activity.Login"

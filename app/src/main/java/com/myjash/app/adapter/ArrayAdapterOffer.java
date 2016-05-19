@@ -21,7 +21,7 @@ import java.util.List;
 
 import com.myjash.app.app.AppController;
 import com.myjash.app.fragments.Flip;
-import com.myjash.app.fragments.OfferFragment;
+import com.myjash.app.fragments.Offer;
 import com.myjash.app.model.ProductModel;
 
 import static com.myjash.app.activity.MainContainer.fragmentManager;
@@ -55,7 +55,7 @@ public class ArrayAdapterOffer extends BaseAdapter {
         public void onClick(View v) {
             Log.d("Clicked", "Clicked");
 
-            MainContainer.fragmentForBackPress = new OfferFragment();
+            MainContainer.fragmentForBackPress = new Offer();
             Flip fragment = new Flip();
             Intent intent = new Intent();
             intent.putExtra("url", v.getTag().toString());

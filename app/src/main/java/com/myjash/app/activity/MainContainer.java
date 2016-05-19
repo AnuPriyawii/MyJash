@@ -31,8 +31,8 @@ import com.facebook.login.LoginResult;
 import com.myjash.app.AppUtil.SlidingDrawer;
 import com.myjash.app.R;
 import com.myjash.app.fragments.DashBoard;
-import com.myjash.app.fragments.OfferFragment;
-import com.myjash.app.fragments.PdfFragment;
+import com.myjash.app.fragments.Offer;
+import com.myjash.app.fragments.Pdf;
 import com.myjash.app.fragments.Product;
 
 import java.security.MessageDigest;
@@ -177,13 +177,13 @@ public class MainContainer extends AppCompatActivity {
                 case R.id.lytPdf:
                     changeTabColor(2);
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.lytMainContainer, new PdfFragment(), "PDF").addToBackStack(null)
+                            .replace(R.id.lytMainContainer, new Pdf(), "PDF").addToBackStack(null)
                             .commit();
                     break;
                 case R.id.lytFlip:
                     changeTabColor(3);
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.lytMainContainer, new OfferFragment(), "OFFER").addToBackStack(null)
+                            .replace(R.id.lytMainContainer, new Offer(), "OFFER").addToBackStack(null)
                             .commit();
                     break;
                 case R.id.lytSearch:

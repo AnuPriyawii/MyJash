@@ -238,67 +238,87 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="#99000000"
                                 android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/txtExpiryDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#99000000"
+                                android:textSize="13sp" />
                         </LinearLayout>
 
-
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/lytBranches"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="10dp"
-                            android:background="#f7f4b1"
-                            android:drawablePadding="20dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="BRANCHES"
-                            android:textStyle="bold" />
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recyclerBranches"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="10dp"
+                                android:background="#f7f4b1"
+                                android:drawablePadding="20dp"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="BRANCHES"
+                                android:textStyle="bold" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerBranches"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="10dp"
+                                android:background="#bcbaba"
+                                android:focusable="false"
+
+                                android:listSelector="#fff"
+                                android:nestedScrollingEnabled="false"
+
+                                android:scrollbars="none"
+                                android:verticalSpacing="1dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lytMall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:background="#fff"
-                            android:focusable="false"
-                            android:horizontalSpacing="1dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
-                            android:listSelector="#fff"
-                            android:nestedScrollingEnabled="false"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="10dp"
+                                android:background="#f7f4b1"
+                                android:drawablePadding="20dp"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="MALL"
+                                android:textStyle="bold" />
 
-                            android:paddingBottom="1dp"
-                            android:scrollbars="none"
-                            android:verticalSpacing="1dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="10dp"
-                            android:background="#f7f4b1"
-                            android:drawablePadding="20dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="MALL"
-                            android:textStyle="bold" />
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recyclerMall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:background="#fff"
-                            android:focusable="false"
-                            android:horizontalSpacing="1dp"
-                            android:listSelector="#fff"
-                            android:nestedScrollingEnabled="false"
-                            android:numColumns="1"
-                            android:paddingBottom="1dp"
-                            android:scrollbars="none"
-                            android:verticalSpacing="1dp" />
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerMall"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="5dp"
+                                android:background="#bcbaba"
+                                android:focusable="false"
+                                android:horizontalSpacing="1dp"
+                                android:listSelector="#fff"
+                                android:nestedScrollingEnabled="false"
+                                android:numColumns="1"
+                                android:scrollbars="none"
+                                android:verticalSpacing="1dp" />
+                        </LinearLayout>
 
                     </LinearLayout>
                     <!-- </ScrollView>-->

@@ -31,7 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MallFragment extends Fragment {
+public class Mall extends Fragment {
     static TextView txtTitle;
     private static List<ProductModel> arrProd = new ArrayList<>();
     private static RecyclerView recyclerView;

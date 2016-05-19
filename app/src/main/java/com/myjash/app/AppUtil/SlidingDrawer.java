@@ -17,9 +17,10 @@ import com.myjash.app.adapter.ArrayAdpterDrawer;
 public class SlidingDrawer {
     Activity activity;
     RecyclerView recyclerView;
+
     //    ArrayAdpterDrawer adapterDrawer;
     DrawerLayout drawer;
-    String[] arraySlider =new String[3];
+    String[] arraySlider = new String[3];
     int[] arrayIcon = {R.drawable.about, R.drawable.contact, R.drawable.login};
 
     public SlidingDrawer(Activity activity) {
@@ -31,8 +32,8 @@ public class SlidingDrawer {
         recyclerView = (RecyclerView) activity.findViewById(R.id.recycler_view_drawer);
         drawer = (DrawerLayout) activity.findViewById(R.id.drawerLayout);
 
-        arraySlider[0]="About us";
-        arraySlider[1]="Contact us";
+        arraySlider[0] = "About us";
+        arraySlider[1] = "Contact us";
         /*Check is already logined*/
         SharedPreferences mSharedPreferences = activity.getSharedPreferences(
                 "LOGIN", 0);

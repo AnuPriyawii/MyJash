@@ -18,7 +18,10 @@ public class HeaderAction {
     TextView txtTitle;
 
     public HeaderAction(View view, Activity activity) {
-        lytMenu = (RelativeLayout) view.findViewById(R.id.lytMenu);
+        if (view == null)
+            lytMenu = (RelativeLayout) activity.findViewById(R.id.lytMenu);
+        else
+            lytMenu = (RelativeLayout) view.findViewById(R.id.lytMenu);
         drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawerLayout);
 //        txtTitle = (TextView) activity.findViewById(R.id.txtHeaderTitle);
 //        txtTitle.setText(msg.toUpperCase());

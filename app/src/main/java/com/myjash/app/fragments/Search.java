@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.myjash.app.AppUtil.HeaderAction;
 import com.myjash.app.AppUtil.PopUpSearchCategory;
 import com.myjash.app.AppUtil.VerticalSpaceItemDecoration;
 import com.myjash.app.activity.MainContainer;
@@ -51,6 +52,9 @@ public class Search extends Fragment {
         btnAdvanced = (Button) view.findViewById(R.id.btnAdvanced);
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
         arrSearchCat = new ArrayList<SearchCategoryModel>();
+
+        /*Set header*/
+        new HeaderAction(view, getActivity());
 
         ///set value to array for arrayadapter
         arrProd = new ArrayList<String>();
@@ -88,7 +92,7 @@ public class Search extends Fragment {
                 getDataForSearch();
                 productName = ((EditText) recyclerView.getChildAt(0).findViewById(R.id.edtProduct)).getText().toString();
 
-                MainContainer.fragmentForBackPress =new Search();
+                MainContainer.fragmentForBackPress = new Search();
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", 0);
                 bundle.putString("type", "search");

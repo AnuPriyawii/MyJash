@@ -12,17 +12,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.myjash.app.activity.Login;
-import com.myjash.app.activity.PopUpProduct;
 import com.myjash.app.activity.Register;
+import com.myjash.app.adapter.ArrayAdapterProduct;
 import com.myjash.app.app.AppController;
 import com.myjash.app.fragments.Brand;
 import com.myjash.app.fragments.Category;
 import com.myjash.app.fragments.Companies;
 import com.myjash.app.fragments.DashBoard;
 import com.myjash.app.fragments.Location;
-import com.myjash.app.fragments.MallFragment;
-import com.myjash.app.fragments.OfferFragment;
-import com.myjash.app.fragments.PdfFragment;
+import com.myjash.app.fragments.Mall;
+import com.myjash.app.fragments.Offer;
+import com.myjash.app.fragments.Pdf;
 import com.myjash.app.fragments.Product;
 
 import org.json.JSONArray;
@@ -81,13 +81,13 @@ public class InternetService {
                             else if (from.equals("category"))
                                 Category.refreshAdapter(jsonArray);
                             else if (from.equals("mall"))
-                                MallFragment.refreshAdapter(jsonArray);
+                                Mall.refreshAdapter(jsonArray);
                             else if (from.equals("search"))
                                 PopUpSearchCategory.refreshAdapter(jsonArray);
                             else if (from.equals("offer"))
-                                OfferFragment.refreshAdapter(jsonArray);
+                                Offer.refreshAdapter(jsonArray);
                             else if (from.equals("pdf"))
-                                PdfFragment.refreshAdapter(jsonArray);
+                                Pdf.refreshAdapter(jsonArray);
                             else if (from.equals("location"))
                                 Location.refreshAdapter(jsonArray);
                             else if (from.equals("dashboard"))
@@ -146,19 +146,19 @@ public class InternetService {
                                     else if (from.equals("category"))
                                         Category.refreshAdapter(jsonArray);
                                     else if (from.equals("mall"))
-                                        MallFragment.refreshAdapter(jsonArray);
+                                        Mall.refreshAdapter(jsonArray);
                                     else if (from.equals("search"))
                                         PopUpSearchCategory.refreshAdapter(jsonArray);
                                     else if (from.equals("offer"))
-                                        OfferFragment.refreshAdapter(jsonArray);
+                                        Offer.refreshAdapter(jsonArray);
                                     else if (from.equals("pdf"))
-                                        PdfFragment.refreshAdapter(jsonArray);
+                                        Pdf.refreshAdapter(jsonArray);
                                     else if (from.equals("location"))
                                         Location.refreshAdapter(jsonArray);
                                     else if (from.equals("dashboard"))
                                         DashBoard.setViewFlipper(jsonObject);
                                     else if (from.equals("popup")) {
-                                        PopUpProduct.getLocationData(jsonArray);
+                                        ArrayAdapterProduct.getLocationData(jsonArray);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -232,7 +232,7 @@ public class InternetService {
                             else if (from.equals("register"))
                                 Register.registerResult(response);
                             else if (from.equals("popup")) {
-                                PopUpProduct.getBranchDetails(response);
+                                ArrayAdapterProduct.displayProduct(response);
                             }
                             pDialog.hide();
                         }

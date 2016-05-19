@@ -84,7 +84,7 @@ public class Product extends Fragment {
                 search();
             } else if (type.equals("mall")) {
                 clearSearchVariables();
-                Search.mallId = MallFragment.mallId;
+                Search.mallId = Mall.mallId;
                 search();
             } else if (type.equals("location")) {
                 clearSearchVariables();

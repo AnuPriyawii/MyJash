@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.myjash.app.R;
@@ -33,11 +34,13 @@ public class ArrayAdpterProductMall extends RecyclerView.Adapter<ArrayAdpterProd
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtName;
         TextView txtDesc;
+        ImageView imgIcon;
 
         public MyViewHolder(View view) {
             super(view);
             txtName = (TextView) view.findViewById(R.id.txtName);
             txtDesc = (TextView) view.findViewById(R.id.txtDesc);
+            imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
             txtName.setOnClickListener(this);
         }
 
@@ -69,8 +72,9 @@ public class ArrayAdpterProductMall extends RecyclerView.Adapter<ArrayAdpterProd
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-//        holder.txtName.setText(array.get(position));
         holder.txtName.setText(array[position]);
+        holder.txtDesc.setVisibility(View.GONE);
+        holder.imgIcon.setVisibility(View.GONE);
     }
 
 

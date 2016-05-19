@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.myjash.app.AppUtil.HeaderAction;
 import com.myjash.app.AppUtil.SlidingDrawer;
 import com.myjash.app.R;
 
@@ -19,5 +20,8 @@ public class AboutUs extends AppCompatActivity {
 
         /*Sliding drawer*/
         new SlidingDrawer(this);
+
+        /*Set header*/
+        new HeaderAction(null, this);
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +13,33 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.activity.PopUpProduct;
 import com.myjash.app.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.myjash.app.app.AppController;
+import com.myjash.app.fragments.Product;
 import com.myjash.app.model.ProductModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by ubundu on 6/4/16.
  */
 public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduct.MyViewHolder> {
     private List<ProductModel> arrayProd;
-    Activity activity;
+    static Activity activity;
+    public static ProductModel modelClicked;
+    public static int positionClicked;
+    public static JSONObject jsonObject;
 
     public ArrayAdapterProduct(List<ProductModel> arrayProd, Activity activity) {
         this.arrayProd = arrayProd;
@@ -103,22 +115,66 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
             @Override
             public void onClick(View v) {
 
-                ArrayList<String> arrayList = new ArrayList<>();
-                arrayList.add(arrayProd.get(position).getName());
-                arrayList.add(arrayProd.get(position).getBrand());
-                arrayList.add(arrayProd.get(position).getPlace());
-                arrayList.add(arrayProd.get(position).getOldRate());
-                arrayList.add(arrayProd.get(position).getNewRate());
-                arrayList.add(arrayProd.get(position).getUrl());
-                arrayList.add(arrayProd.get(position).getProdUrl());
-                arrayList.add(arrayProd.get(position).getDescription());
-                arrayList.add(position + "");
-                Intent intent = new Intent(activity, PopUpProduct.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("position", Integer.parseInt(v.getTag().toString()));
-                intent.putStringArrayListExtra("list", arrayList);
-                activity.startActivity(intent);
+//                ArrayList<String> arrayList = new ArrayList<>();
+//                arrayList.add(arrayProd.get(position).getName());
+//                arrayList.add(arrayProd.get(position).getBrand());
+//                arrayList.add(arrayProd.get(position).getPlace());
+//                arrayList.add(arrayProd.get(position).getOldRate());
+//                arrayList.add(arrayProd.get(position).getNewRate());
+//                arrayList.add(arrayProd.get(position).getUrl());
+//                arrayList.add(arrayProd.get(position).getProdUrl());
+//                arrayList.add(arrayProd.get(position).getDescription());
+//                arrayList.add(position + "");
+
+                 /*load more details includes branches and mall*/
+                positionClicked = Integer.parseInt(v.getTag().toString());
+                modelClicked = Product.arrProd.get(positionClicked);
+                new InternetService(activity).downloadDataByGet("getAllActiveMallLocation", "popup", false);
+
+
             }
         });
+    }
+
+    public static void getLocationData(JSONArray jsonArray) {
+        String locationId = "";
+        Log.d("MallId", jsonArray + " f");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int mallId = jsonObject.getInt("ml_id");
+                if (modelClicked.getLocationId() != null)
+                    if (modelClicked.getLocationId().length() > 0)
+                        if (mallId == Integer.parseInt(modelClicked.getLocationId())) {
+                            locationId = jsonObject.getString("location_id");
+                            break;
+                        }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("category_id", modelClicked.getCategoryId());
+
+        params.put("locationId", locationId);
+        params.put("product_name", modelClicked.getName());
+        params.put("brand_id", modelClicked.getBrandId());
+        params.put("companyId", modelClicked.getCompanyId());
+        params.put("mallId", modelClicked.getMallId());
+        params.put("vendor_id", modelClicked.getVendorId());
+        new InternetService(activity).downloadDataByPOST("fetchallproductdetails", params, "popup");
+    }
+
+    public static void displayProduct(JSONObject response) {
+        jsonObject = response;
+        Intent intent = new Intent(activity, PopUpProduct.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("position", positionClicked);
+//                intent.putStringArrayListExtra("list", arrayList);
+        activity.startActivity(intent);
+
     }
 }

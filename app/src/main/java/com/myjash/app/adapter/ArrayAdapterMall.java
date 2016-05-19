@@ -14,7 +14,7 @@ import com.myjash.app.R;
 
 import java.util.List;
 
-import com.myjash.app.fragments.MallFragment;
+import com.myjash.app.fragments.Mall;
 import com.myjash.app.fragments.Product;
 import com.myjash.app.model.ProductModel;
 
@@ -49,9 +49,9 @@ public class ArrayAdapterMall extends RecyclerView.Adapter<ArrayAdapterMall.MyVi
         @Override
         public void onClick(View v) {
             String id = v.getTag().toString();
-            MallFragment.mallId = "";
-            MallFragment.mallId = id;
-            MainContainer.fragmentForBackPress = new MallFragment();
+            Mall.mallId = "";
+            Mall.mallId = id;
+            MainContainer.fragmentForBackPress = new Mall();
             Bundle bundle = new Bundle();
             bundle.putInt("id", Integer.parseInt(id));
             bundle.putString("type", "mall");

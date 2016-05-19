@@ -19,8 +19,8 @@ import com.myjash.app.R;
 import java.util.List;
 
 import com.myjash.app.app.AppController;
-import com.myjash.app.fragments.PdfFragment;
-import com.myjash.app.fragments.PdfViewerFragment;
+import com.myjash.app.fragments.Pdf;
+import com.myjash.app.fragments.PdfViewer;
 import com.myjash.app.model.ProductModel;
 
 import static com.myjash.app.activity.MainContainer.fragmentManager;
@@ -53,8 +53,8 @@ public class ArrayAdapterPdf extends BaseAdapter {
         @Override
         public void onClick(View v) {
             Log.d("Clicked", "Clicked");
-            MainContainer.fragmentForBackPress = new PdfFragment();
-            PdfViewerFragment fragment = new PdfViewerFragment();
+            MainContainer.fragmentForBackPress = new Pdf();
+            PdfViewer fragment = new PdfViewer();
             Intent intent = new Intent();
             intent.putExtra("url", v.getTag().toString());
             fragment.setArguments(intent.getExtras());

@@ -2,6 +2,10 @@ package com.myjash.app.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -18,11 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.myjash.app.AppUtil.HeaderAction;
 import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
-import com.myjash.app.AppUtil.NetworkImageView;
 import com.myjash.app.AppUtil.Util;
 import com.myjash.app.AppUtil.ZoomOutPageTransformer;
 import com.myjash.app.activity.MainContainer;
@@ -97,18 +101,38 @@ public class DashBoard extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String url = InternetService.IMG_BASE_URL + "vendor/" + jsonObject.getString("logo");
 
-                NetworkImageView networkImageView = new NetworkImageView(activity);
+                /*Inflate a layout*/
+                View view = activity.getLayoutInflater().inflate(R.layout.layout_list_viewflipper, null);
 
+                final ImageView networkImageView = (ImageView) view.findViewById(R.id.networkImg);
+
+                networkImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
                 ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
-                imageLoader.get(url, ImageLoader.getImageListener(
-                        networkImageView, R.drawable.logo_round, R.drawable.logo));
-                networkImageView.setImageUrl(url, imageLoader);
-                networkImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                networkImageView.setLayoutParams(params);
+                ImageLoader.ImageListener imageListener = new ImageLoader.ImageListener() {
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                        if (response.getBitmap() != null) {
+                            Bitmap bitmap = response.getBitmap();
+                            Bitmap resized = Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * 0.8),
+                                    (int) (bitmap.getHeight() * 0.8), true);
+                            networkImageView.setImageBitmap(bitmap);
+                            networkImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                        } else {
+                            networkImageView.setImageResource(R.drawable.logo_round);
+                        }
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        networkImageView.setImageResource(R.drawable.logo_round);
+
+                    }
+                };
+                imageLoader.get(url, imageListener);
                 arrUrl[i] = url;
-                viewPager.addView(networkImageView);
+                viewPager.addView(view);
 
             }
             /*View pager for flip*/
@@ -118,6 +142,16 @@ public class DashBoard extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap scaleBitmap(Bitmap bitmap, int wantedWidth, int wantedHeight) {
+        Bitmap output = Bitmap.createBitmap(wantedWidth, wantedHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        Matrix m = new Matrix();
+        m.setScale((float) wantedWidth / bitmap.getWidth(), (float) wantedHeight / bitmap.getHeight());
+        canvas.drawBitmap(bitmap, m, new Paint());
+
+        return output;
     }
 
     View.OnClickListener onClick = new View.OnClickListener() {
@@ -146,7 +180,7 @@ public class DashBoard extends Fragment {
                     break;
                 case R.id.lytMall:
                     getFragmentManager().beginTransaction()
-                            .replace(R.id.lytMainContainer, new MallFragment(), "MALL").addToBackStack(null)
+                            .replace(R.id.lytMainContainer, new Mall(), "MALL").addToBackStack(null)
                             .commit();
                     break;
                 case R.id.lytLocation:

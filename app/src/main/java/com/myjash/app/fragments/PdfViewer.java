@@ -33,7 +33,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.zip.Inflater;
 
-public class PdfViewerFragment extends Fragment {
+public class PdfViewer extends Fragment {
     TextView tv_loading;
     String dest_file_path = "test.pdf";
     int downloadedSize = 0, totalsize;

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,6 +15,8 @@ import com.myjash.app.R;
 
 
 public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
+
+    RelativeLayout lytMenu;
     private com.google.android.gms.maps.GoogleMap mMap;
     Button btnClose;
     Double latitude;
@@ -25,6 +28,9 @@ public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_map);
         btnClose = (Button) findViewById(R.id.btnClose);
+        /*remove menu icon from header*/
+        lytMenu = (RelativeLayout) findViewById(R.id.lytMenu);
+        lytMenu.setVisibility(View.GONE);
 
         latitude = Double.parseDouble(getIntent().getExtras().getString("latitude"));
         longitude = Double.parseDouble(getIntent().getExtras().getString("longitude"));

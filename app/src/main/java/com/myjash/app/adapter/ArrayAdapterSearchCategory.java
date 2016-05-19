@@ -52,7 +52,7 @@ public class ArrayAdapterSearchCategory extends RecyclerView.Adapter<ArrayAdapte
             if (v.getTag() != null)
                 activity.showPopUp(v.getTag().toString(), v);
 //            fragmentManager.beginTransaction()
-//                    .replace(R.id.lytMainContainer, new PdfViewerFragment()).addToBackStack(null)
+//                    .replace(R.id.lytMainContainer, new PdfViewer()).addToBackStack(null)
 //                    .commit();
         }
     }
