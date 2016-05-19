@@ -59,7 +59,7 @@
                         android:background="@drawable/yellow_round"
                         android:visibility="visible">
 
-                        <com.wiinnova.myjash.AppUtil.CircularNetworkImageView
+                        <com.myjash.app.AppUtil.CircularNetworkImageView
                             android:id="@+id/imgLogoFirst"
                             android:layout_width="88dp"
                             android:layout_height="88dp"
@@ -115,7 +115,7 @@
                                     android:layout_gravity="bottom|center"
                                     android:background="@drawable/yellow_round">
 
-                                    <com.wiinnova.myjash.AppUtil.CircularNetworkImageView
+                                    <com.myjash.app.AppUtil.CircularNetworkImageView
                                         android:id="@+id/imgLogo"
                                         android:layout_width="88dp"
                                         android:layout_height="88dp"
@@ -246,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/blk_boarder"
+                            android:background="#f7f4b1"
                             android:drawablePadding="20dp"
                             android:gravity="center"
                             android:padding="10dp"
@@ -276,7 +276,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/blk_boarder"
+                            android:background="#f7f4b1"
                             android:drawablePadding="20dp"
                             android:gravity="center"
                             android:padding="10dp"

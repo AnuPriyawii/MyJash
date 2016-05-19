@@ -6,7 +6,7 @@
     android:background="#fff"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.wiinnova.myjash.fragments.Flip">
+    tools:context="com.myjash.app.fragments.Flip">
 
     <RelativeLayout
         android:layout_width="match_parent"

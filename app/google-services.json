@@ -1,18 +1,14 @@
 {
   "project_info": {
-    "project_id": "my-jash",
     "project_number": "411089945761",
-    "name": "My jash"
+    "project_id": "my-jash"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:411089945761:android:252d6b629e4e8fa4",
-        "client_id": "android:com.wiinnova.myjash",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "com.wiinnova.myjash",
-          "certificate_hash": []
+          "package_name": "com.wiinnova.myjash"
         }
       },
       "oauth_client": [
@@ -23,23 +19,63 @@
             "package_name": "com.wiinnova.myjash",
             "certificate_hash": "8FADAD448A6647214F9BCEB0165C14235C96786B"
           }
+        },
+        {
+          "client_id": "411089945761-8c67e0tfs11j92alpkqjf4o823o594el.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5mZZXvzyxwsvj3wRJ7eJIOG3oPzx_vVE"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 1,
-          "apns_config": []
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
-          "status": 2
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411089945761:android:a5a231f8370cda6c",
+        "android_client_info": {
+          "package_name": "com.myjash.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411089945761-oruon0042fcvlal0a3101ace7ichj3cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myjash.app",
+            "certificate_hash": "8FADAD448A6647214F9BCEB0165C14235C96786B"
+          }
+        },
+        {
+          "client_id": "411089945761-8c67e0tfs11j92alpkqjf4o823o594el.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5mZZXvzyxwsvj3wRJ7eJIOG3oPzx_vVE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 1
@@ -47,6 +83,5 @@
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

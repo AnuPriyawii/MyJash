@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:weightSum="1"
-    tools:context="com.wiinnova.myjash.AppUtil.PopUpSearchCategory">
+    tools:context="com.myjash.app.AppUtil.PopUpSearchCategory">
 
 
     <LinearLayout
