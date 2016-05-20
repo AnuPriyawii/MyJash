@@ -51,7 +51,7 @@ public class PopUpSearchCategory extends Activity {
         ////////////////////////////Download data
         if (category.equals("Category")) {
             new InternetService(this).downloadDataByGet("getAllActiveCategories", "search", false);
-        } else if (category.equals("Company")) {
+        } else if (category.equals("Shop")) {
             new InternetService(this).downloadDataByGet("getAllActiveVendors", "search", false);
         } else if (category.equals("Brand")) {
             new InternetService(this).downloadDataByGet("getAllActiveBrands", "search", false);
@@ -89,7 +89,7 @@ public class PopUpSearchCategory extends Activity {
                 if (category.equals("Category")) {
                     model.setName(jsonObject.getString("category_name"));
                     model.setId(jsonObject.getInt("category_id"));
-                } else if (category.equals("Company")) {
+                } else if (category.equals("Shop")) {
 
                     model.setName(jsonObject.getString("v_name"));
                     model.setId(jsonObject.getInt("v_id"));

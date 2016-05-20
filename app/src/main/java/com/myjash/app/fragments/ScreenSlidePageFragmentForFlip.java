@@ -1,5 +1,6 @@
 package com.myjash.app.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.R;
+import com.myjash.app.activity.WebViewAdvertisement;
 import com.myjash.app.app.AppController;
 
 import java.io.File;
@@ -28,16 +30,18 @@ import java.io.File;
  */
 public class ScreenSlidePageFragmentForFlip extends Fragment {
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_screen_slide_page_fragment_for_flip, container, false);
-        final NetworkImageView networkImageView= (NetworkImageView) rootView.findViewById(R.id.img);
+        final NetworkImageView networkImageView = (NetworkImageView) rootView.findViewById(R.id.img);
 
 
 //        String url = Flip.IMAGE_URL;
         String url = getArguments().getString("url");
+        final String link = getArguments().getString("link");
         Log.d("ImageURl", url + " fragment");
         RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
 
@@ -69,7 +73,14 @@ public class ScreenSlidePageFragmentForFlip extends Fragment {
 
         networkImageView.setImageUrl(url, imageLoader);
 
-
+        networkImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoard.activity, WebViewAdvertisement.class);
+                intent.putExtra("url", link);
+                DashBoard.activity.startActivity(intent);
+            }
+        });
         return rootView;
     }
 }

@@ -50,6 +50,7 @@ public class InternetService {
 
     public InternetService(Activity activity) {
         this.activity = activity;
+        pDialog = new ProgressDialog(activity);
     }
 
     /*download data from cache memmory by volley library*/
@@ -57,7 +58,7 @@ public class InternetService {
 
         try {
             jsonArray = new JSONArray();
-            pDialog = new ProgressDialog(activity);
+
             pDialog.setMessage("Loading...");
             pDialog.show();
 
@@ -119,7 +120,7 @@ public class InternetService {
         try {
             jsonArray = new JSONArray();
             if (!refresh) {
-                pDialog = new ProgressDialog(activity);
+//                pDialog = new ProgressDialog(activity);
                 pDialog.setMessage("Loading...");
                 pDialog.show();
             }
@@ -212,7 +213,7 @@ public class InternetService {
     public JSONArray downloadDataByPOST(String url, final Map<String, String> params, final String from) {
         try {
             jsonArray = new JSONArray();
-            pDialog = new ProgressDialog(activity);
+//            pDialog = new ProgressDialog(activity);
             pDialog.setMessage("Loading...");
             pDialog.show();
             Log.d("ParamsGet", params + " dfgfd");

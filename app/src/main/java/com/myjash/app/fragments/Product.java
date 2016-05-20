@@ -130,7 +130,7 @@ public class Product extends Fragment {
     }
 
     public static void refreshAdapter(JSONObject json) {
-        Log.d("TypeGet", arrProd.size() + " f");
+        Log.d("TypeGet", json + " f");
         boolean isArrayEmpty = true;
         if (arrProd.size() > 0)
             isArrayEmpty = false;
@@ -140,7 +140,7 @@ public class Product extends Fragment {
                 arrProd.clear();
                 JSONArray jsonArray = new JSONArray(json.getString("result"));
                 Log.d("Normal", jsonArray.length() + " cgh");
-                for (int i = jsonArray.length() - 1; i > 0; i--) {
+                for (int i = jsonArray.length() - 1; i >= 0; i--) {
                     try {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 

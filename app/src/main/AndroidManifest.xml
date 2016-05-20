@@ -80,7 +80,8 @@
             android:name=".activity.ContactUs"
             android:launchMode="singleTop" />
         <activity android:name=".activity.PopUpProduct" />
-        <activity android:name=".activity.GoogleMap"></activity>
+        <activity android:name=".activity.GoogleMap" />
+        <activity android:name=".activity.WebViewAdvertisement"></activity>
     </application>
 
 </manifest>

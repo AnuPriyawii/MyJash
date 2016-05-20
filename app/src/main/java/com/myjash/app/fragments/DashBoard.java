@@ -2,6 +2,7 @@ package com.myjash.app.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -31,6 +32,7 @@ import com.myjash.app.AppUtil.Util;
 import com.myjash.app.AppUtil.ZoomOutPageTransformer;
 import com.myjash.app.activity.MainContainer;
 import com.myjash.app.R;
+import com.myjash.app.activity.WebViewAdvertisement;
 import com.myjash.app.app.AppController;
 
 import org.json.JSONArray;
@@ -52,6 +54,7 @@ public class DashBoard extends Fragment {
     public static Activity activity;
     public static int NUM_PAGES = 0;
     public static String[] arrUrl;
+    public static String[] arrLink;
 
     @Nullable
     @Override
@@ -71,7 +74,7 @@ public class DashBoard extends Fragment {
 
         /*View flipper*/
         if (Util.haveNetworkConnection(getActivity())) {
-            new InternetService(getActivity()).downloadDataByGet("getFlip", "dashboard", true);
+            new InternetService(getActivity()).downloadDataByGet("getAds", "dashboard", true);
         }
 
         /*Set header*/
@@ -97,42 +100,14 @@ public class DashBoard extends Fragment {
                 viewPager.setVisibility(View.VISIBLE);
             }
             arrUrl = new String[NUM_PAGES];
+            arrLink = new String[NUM_PAGES];
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String url = InternetService.IMG_BASE_URL + "vendor/" + jsonObject.getString("logo");
+                final String url = InternetService.IMG_BASE_URL + "advertisement/" + jsonObject.getString("content");
+                final String link = jsonObject.getString("ad_link");
 
-                /*Inflate a layout*/
-                View view = activity.getLayoutInflater().inflate(R.layout.layout_list_viewflipper, null);
-
-                final ImageView networkImageView = (ImageView) view.findViewById(R.id.networkImg);
-
-                networkImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
-                ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
-                ImageLoader.ImageListener imageListener = new ImageLoader.ImageListener() {
-                    @Override
-                    public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                        if (response.getBitmap() != null) {
-                            Bitmap bitmap = response.getBitmap();
-                            Bitmap resized = Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * 0.8),
-                                    (int) (bitmap.getHeight() * 0.8), true);
-                            networkImageView.setImageBitmap(bitmap);
-                            networkImageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                        } else {
-                            networkImageView.setImageResource(R.drawable.logo_round);
-                        }
-                    }
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        networkImageView.setImageResource(R.drawable.logo_round);
-
-                    }
-                };
-                imageLoader.get(url, imageListener);
                 arrUrl[i] = url;
-                viewPager.addView(view);
+                arrLink[i]=link;
 
             }
             /*View pager for flip*/
@@ -211,6 +186,8 @@ public class DashBoard extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putString("url", arrUrl[position]);
+            bundle.putString("link", arrLink[position]);
+
             bundle.putInt("position", position);
             ScreenSlidePageFragmentForFlip fragobj = new ScreenSlidePageFragmentForFlip();
             fragobj.setArguments(bundle);

@@ -77,7 +77,7 @@ public class Search extends Fragment {
             @Override
             public void onClick(View v) {
                 arrProd.add("Category");
-                arrProd.add("Company");
+                arrProd.add("Shop");
                 arrProd.add("Brand");
                 arrProd.add("Mall");
                 adapter.notifyDataSetChanged();
@@ -114,27 +114,27 @@ public class Search extends Fragment {
         mallId = null;
         for (int i = 0; i < arrSearchCat.size(); i++) {
             if (arrSearchCat.get(i).getCategory().equals("Location")) {
-                if (locatioId.length() == 0)
+                if (locatioId != null)
                     locatioId = arrSearchCat.get(i).getId() + "";
                 else
                     locatioId = locatioId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Category")) {
-                if (categoryId.length() == 0)
+                if (categoryId!= null)
                     categoryId = arrSearchCat.get(i).getId() + "";
                 else
                     categoryId = categoryId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Company")) {
-                if (companyId.length() == 0)
+                if (companyId!= null)
                     companyId = arrSearchCat.get(i).getId() + "";
                 else
                     companyId = companyId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Brand")) {
-                if (brandId.length() == 0)
+                if (brandId!= null)
                     brandId = arrSearchCat.get(i).getId() + "";
                 else
                     brandId = brandId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Mall")) {
-                if (mallId.length() == 0)
+                if (mallId!= null)
                     mallId = arrSearchCat.get(i).getId() + "";
                 else
                     mallId = mallId + "," + arrSearchCat.get(i).getId() + "";
