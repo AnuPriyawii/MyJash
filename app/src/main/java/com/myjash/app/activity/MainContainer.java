@@ -28,6 +28,7 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.SlidingDrawer;
 import com.myjash.app.R;
 import com.myjash.app.fragments.DashBoard;
@@ -154,7 +155,6 @@ public class MainContainer extends AppCompatActivity {
 
         }
 
-
     }
 
     View.OnClickListener onClick = new View.OnClickListener() {
@@ -252,14 +252,16 @@ public class MainContainer extends AppCompatActivity {
     public void onBackPressed() {
         Fragment f = getFragmentManager().findFragmentById(R.id.lytMainContainer);
         if (f instanceof DashBoard) {
+            Log.d("BAckPress","Instanceof db");
             if (backPress > 0)
-                super.onBackPressed();
+                finish();
             else
                 Toast.makeText(MainContainer.this, "Press again to exit", Toast.LENGTH_SHORT).show();
 
             backPress++;
         } else {
 
+            Log.d("BAckPress","Not an Instanceof db");
             backPress = 0;
             getFragmentManager().beginTransaction()
                     .replace(R.id.lytMainContainer, fragmentForBackPress, "DASHBOARD").addToBackStack(null)

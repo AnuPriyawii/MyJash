@@ -22,7 +22,7 @@
         android:background="#ebebeb"
         android:gravity="center|left"
         android:paddingLeft="10dp"
-        android:text="COMPANIES"
+        android:text="Shop"
         android:textColor="#99000000"
         android:textStyle="bold"></TextView>
 

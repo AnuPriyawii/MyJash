@@ -38,6 +38,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
@@ -49,6 +50,7 @@
 
         <activity
             android:name=".activity.Login"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -63,9 +65,11 @@
         </activity>
         <activity
             android:name=".activity.Register"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AppUtil.PopUpSearchCategory"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.LoginWithTwitter" />
 
@@ -75,13 +79,21 @@
 
         <activity
             android:name=".activity.AboutUs"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ContactUs"
-            android:launchMode="singleTop" />
-        <activity android:name=".activity.PopUpProduct" />
-        <activity android:name=".activity.GoogleMap" />
-        <activity android:name=".activity.WebViewAdvertisement"></activity>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PopUpProduct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.GoogleMap"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebViewAdvertisement"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

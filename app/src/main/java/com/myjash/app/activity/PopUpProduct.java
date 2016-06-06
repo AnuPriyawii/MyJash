@@ -1,6 +1,7 @@
 package com.myjash.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.location.GpsStatus;
 import android.os.AsyncTask;
@@ -59,8 +60,9 @@ public class PopUpProduct extends AppCompatActivity {
     TextView txtNewPrice;
     TextView txtDesc;
     TextView txtEpiry;
-    static LinearLayout lytBranches;
-    static LinearLayout lytMall;
+//    static LinearLayout lytBranches;
+//    static LinearLayout lytMall;
+    LinearLayout lytLocation;
 
     static RecyclerView recyclerBranch;
     static RecyclerView recyclerMall;
@@ -94,8 +96,9 @@ public class PopUpProduct extends AppCompatActivity {
         recyclerBranch = (RecyclerView) findViewById(R.id.recyclerBranches);
         recyclerMall = (RecyclerView) findViewById(R.id.recyclerMall);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
-        lytBranches = (LinearLayout) findViewById(R.id.lytBranches);
-        lytMall = (LinearLayout) findViewById(R.id.lytMall);
+//        lytBranches = (LinearLayout) findViewById(R.id.lytBranches);
+//        lytMall = (LinearLayout) findViewById(R.id.lytMall);
+        lytLocation = (LinearLayout) findViewById(R.id.lytLocation);
 
 
         /*Set header*/
@@ -127,7 +130,9 @@ public class PopUpProduct extends AppCompatActivity {
         txtOldPrice.setText(model.getOldRate());
         txtNewPrice.setText(model.getNewRate());
         txtDesc.setText(model.getDescription());
-        txtEpiry.setText("Expiry date: "+model.getExprDate());
+        txtEpiry.setText("Expiry date: " + model.getExprDate());
+
+
 
        /* *//*load more details includes branches and mall*//*
         new InternetService(activity).downloadDataByGet("getAllActiveMallLocation", "popup", true);*/
@@ -170,6 +175,14 @@ public class PopUpProduct extends AppCompatActivity {
 
         /*Display branch and mall*/
         getBranchDetails(ArrayAdapterProduct.jsonObject);
+        lytLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, GoogleMap.class);
+                intent.putExtra("array", arrBranches);
+                startActivity(intent);
+            }
+        });
     }
 
     public void displayLogo(final CircularNetworkImageView imgLogo) {
@@ -249,27 +262,36 @@ public class PopUpProduct extends AppCompatActivity {
                     model.setLongitude(jArrBranch.getJSONObject(j).getString("lng"));
                     arrBranches.add(model);
                 }
+                 /*Add location of shop too*/
+                model.setVendorName(jsonObject.getString("v_name"));
+                model.setLatitude(jsonObject.getString("v_lat"));
+                model.setLongitude(jsonObject.getString("v_lng"));
+                model.setAddress(jsonObject.getString("v_address"));
+                arrBranches.add(model);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (arrBranches.size() > 0) {
-            lytBranches.setVisibility(View.VISIBLE);
+        Log.d("ArrBranchDetails", arrBranches.size() + " d");
+      /*  if (arrBranches.size() > 0) {
+
+//            lytBranches.setVisibility(View.VISIBLE);
             adapterBranches = new ArrayAdapterBranches(activity, arrBranches);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
             recyclerBranch.setLayoutManager(mLayoutManager);
             recyclerBranch.setItemAnimator(new DefaultItemAnimator());
-            if (arrBranches.size() > 1)
+            if (arrBranches.size() > 1) {
                 recyclerBranch.addItemDecoration(new VerticalSpaceItemDecoration(1));
-            recyclerBranch.setAdapter(adapterBranches);
-        }
+                recyclerBranch.setAdapter(adapterBranches);
+            }
+        }*/
 
          /*Display mall*/
-        if (mallList != null) {
+       /* if (mallList != null) {
             if (mallList.length() > 0) {
                 arrMall = mallList.split(",");
                 if (arrMall.length > 0) {
-                    lytMall.setVisibility(View.VISIBLE);
+//                    lytMall.setVisibility(View.VISIBLE);
                     ArrayAdpterProductMall adapterMall = new ArrayAdpterProductMall(activity, arrMall);
                     RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(activity);
                     recyclerMall.setLayoutManager(mLayoutManager2);
@@ -279,6 +301,6 @@ public class PopUpProduct extends AppCompatActivity {
                     recyclerMall.setAdapter(adapterMall);
                 }
             }
-        }
+        }*/
     }
 }

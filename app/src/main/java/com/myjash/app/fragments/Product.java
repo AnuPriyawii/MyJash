@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +33,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Product extends Fragment {
-    static TextView txtTitle;
+    TextView txtTitle;
     public static List<ProductModel> arrProd;
-    private static RecyclerView recyclerView;
-    private static ArrayAdapterProduct adapterProduct;
-    static Activity activity;
-    static int id;
-    static String type = "";
-//    public static int clickedPosition;
+    private RecyclerView recyclerView;
+    private ArrayAdapterProduct adapterProduct;
+    Activity activity;
+    int id;
+    String type = "";
+//    public  int clickedPosition;
 
 
     @Nullable
@@ -92,11 +93,12 @@ public class Product extends Fragment {
                 search();
             } else {
                 Log.d("Normal", "dgdfgd");
-                new InternetService(getActivity()).loadDataFromCache("getAllProductDetails", "product");
+                new InternetService(getActivity()).downloadDataByGet("getAllProductDetails", "product", false);
             }
         } else {
             Toast.makeText(getActivity(), "No internet connection", Toast.LENGTH_SHORT).show();
         }
+
 
         return view;
     }
@@ -115,12 +117,13 @@ public class Product extends Fragment {
         params.put("locationId", Search.locatioId);
         params.put("productName", Search.productName);
         Log.d("Bundleget", params + " null");
+        Log.d("CompanyId", Search.companyId + " d");
         if (Search.categoryId == null && Search.companyId == null && Search.brandId == null && Search.mallId == null)
             new InternetService(activity).downloadDataByPOST("searchQuery", params, "search");
         else {
             params.put("categoryId", Search.categoryId);
             params.put("brandId", Search.brandId);
-            params.put("companyId", Search.companyId);
+            params.put("vendorId", Search.companyId);
             params.put("mallId", Search.mallId);
             Log.d("Bundleget", params + " null");
             new InternetService(activity).downloadDataByPOST("advancedSearch", params, "search");
@@ -129,8 +132,7 @@ public class Product extends Fragment {
         return params;
     }
 
-    public static void refreshAdapter(JSONObject json) {
-        Log.d("TypeGet", json + " f");
+    public void refreshAdapter(JSONObject json) {
         boolean isArrayEmpty = true;
         if (arrProd.size() > 0)
             isArrayEmpty = false;
@@ -140,7 +142,7 @@ public class Product extends Fragment {
                 arrProd.clear();
                 JSONArray jsonArray = new JSONArray(json.getString("result"));
                 Log.d("Normal", jsonArray.length() + " cgh");
-                for (int i = jsonArray.length() - 1; i >= 0; i--) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -170,11 +172,30 @@ public class Product extends Fragment {
                 if (arrProd.size() > 0) {
                     if (isArrayEmpty) {
                         adapterProduct = new ArrayAdapterProduct(arrProd, activity);
-                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
+                        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(activity);
                         recyclerView.setLayoutManager(mLayoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
-//            recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
                         recyclerView.setAdapter(adapterProduct);
+
+                          /*Scroll listenr*/
+                        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                            @Override
+                            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                                super.onScrolled(recyclerView, dx, dy);
+                                Log.d("lastPos", mLayoutManager.findLastVisibleItemPosition() + "f");
+                                if (mLayoutManager.findLastCompletelyVisibleItemPosition() == adapterProduct.num * 15 - 1) {
+                                    if ((adapterProduct.num) * 15 < arrProd.size())
+                                        adapterProduct.num = adapterProduct.num + 1;
+                                }
+                            }
+
+                            @Override
+                            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                                super.onScrollStateChanged(recyclerView, newState);
+
+
+                            }
+                        });
                     } else {
                         adapterProduct.notifyDataSetChanged();
                     }
@@ -182,6 +203,8 @@ public class Product extends Fragment {
             } else {
                 txtTitle.setVisibility(View.VISIBLE);
             }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

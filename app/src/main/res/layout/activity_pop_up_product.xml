@@ -35,6 +35,7 @@
                 android:fillViewport="true"
                 android:scrollbars="none">
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -42,6 +43,88 @@
                     android:gravity="center|top"
                     android:orientation="vertical">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/lytLogoMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <com.android.volley.toolbox.NetworkImageView
+                                    android:id="@+id/imgProduct"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="50dp"
+                                    android:background="@drawable/home_bg"
+                                    android:scaleType="centerCrop" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lytLogo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom|center"
+                                android:orientation="vertical">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="bottom|center"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_centerInParent="true"
+                                        android:layout_gravity="bottom|center"
+                                        android:background="@drawable/yellow_round">
+
+                                        <com.myjash.app.AppUtil.CircularNetworkImageView
+                                            android:id="@+id/imgLogo"
+                                            android:layout_width="88dp"
+                                            android:layout_height="88dp"
+                                            android:layout_centerInParent="true"
+                                            android:scaleType="fitXY" />
+                                    </RelativeLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lytLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#a0ffffff"
+                            android:gravity="right"
+
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/location_gray"
+                                android:drawablePadding="7dp"
+                                android:drawableRight="@drawable/down_arrow"
+                                android:padding="7dp"
+                                android:text="View Location" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
                     <!--  <ScrollView
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
@@ -55,7 +138,8 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerInParent="true"
                         android:layout_gravity="bottom|center"
-                        android:layout_margin="10dp"
+
+                        android:layout_margin="5dp"
                         android:background="@drawable/yellow_round"
                         android:visibility="visible">
 
@@ -68,63 +152,6 @@
                             android:scaleType="fitXY" />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/lytLogoMain"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:gravity="center"
-                        android:orientation="vertical"
-
-                        android:visibility="gone">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                            <com.android.volley.toolbox.NetworkImageView
-                                android:id="@+id/imgProduct"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="50dp"
-                                android:background="@drawable/home_bg"
-                                android:scaleType="centerCrop" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/lytLogo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="bottom|center"
-                            android:orientation="vertical">
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="bottom|center"
-                                android:orientation="vertical">
-
-                                <RelativeLayout
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_gravity="bottom|center"
-                                    android:background="@drawable/yellow_round">
-
-                                    <com.myjash.app.AppUtil.CircularNetworkImageView
-                                        android:id="@+id/imgLogo"
-                                        android:layout_width="88dp"
-                                        android:layout_height="88dp"
-                                        android:layout_centerInParent="true"
-                                        android:scaleType="fitXY" />
-                                </RelativeLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -211,7 +238,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:orientation="vertical">
@@ -234,23 +260,40 @@
 
                             <TextView
                                 android:id="@+id/txtDesc"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@drawable/black_underline"
                                 android:textColor="#99000000"
                                 android:textSize="13sp" />
 
-                            <TextView
-                                android:id="@+id/txtExpiryDate"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="#99000000"
-                                android:textSize="13sp" />
+                                android:layout_marginTop="10dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/calendar"
+                                    android:textColor="#99000000"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/txtExpiryDate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:textColor="#99000000"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/lytBranches"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:orientation="vertical"
                             android:visibility="gone">
 

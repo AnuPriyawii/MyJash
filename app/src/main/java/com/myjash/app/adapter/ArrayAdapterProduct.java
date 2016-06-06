@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.myjash.app.AppUtil.InternetService;
@@ -40,10 +41,13 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
     public static ProductModel modelClicked;
     public static int positionClicked;
     public static JSONObject jsonObject;
+    public int num = 1;
+    HashMap<Integer, View> hashMap;
 
     public ArrayAdapterProduct(List<ProductModel> arrayProd, Activity activity) {
         this.arrayProd = arrayProd;
         this.activity = activity;
+        hashMap = new HashMap<>();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -53,10 +57,15 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
         public TextView txtNewRate;
         public TextView txtOldRate;
         public NetworkImageView imageView;
+        public int imgPosition;
+        public ImageLoader imageLoader;
         View V;
 
         public MyViewHolder(View view) {
             super(view);
+            if (hashMap.get(getAdapterPosition()) == null) {
+                hashMap.put(getAdapterPosition(), view);
+            }
             V = view;
             txtproduct = (TextView) view.findViewById(R.id.txtProdName);
             txtExprd = (TextView) view.findViewById(R.id.txtExpDate);
@@ -71,41 +80,71 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
 
     @Override
     public int getItemCount() {
-        return arrayProd.size();
+        if (num * 15 > arrayProd.size()) {
+            return arrayProd.size();
+        } else {
+            return num * 15;
+        }
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("parent", parent + "f");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_list_product, parent, false);
         parent.setTag(itemView);
-
 
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
         holder.V.setTag(position);
-        ProductModel model = arrayProd.get(position);
+        final ProductModel model = arrayProd.get(position);
+//        if (!model.isLoadedOnce()) {
         holder.txtPlace.setText(model.getPlace());
         holder.txtOldRate.setText("AED " + model.getOldRate());
         holder.txtNewRate.setText("AED " + model.getNewRate());
         holder.txtExprd.setText("Expiry date: " + model.getExprDate());
         holder.txtproduct.setText(model.getName());
-
+        holder.imageView.setTag(R.integer.tag1, model.getUrl());
+        holder.imageView.setTag(R.integer.tag2, position);
+        if (model.getBitmap() != null) {
+            holder.imageView.setImageBitmap(model.getBitmap());
+        }
         /*Strike through*/
         holder.txtOldRate.setPaintFlags(holder.txtOldRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         try {
             if (model.getUrl() != null) {
                 RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
 
-                ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
-                imageLoader.get(model.getUrl(), ImageLoader.getImageListener(
-                        holder.imageView, R.drawable.logo_round, R.drawable.logo));
+                holder.imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
+                holder.imageLoader.get(model.getUrl(), new ImageLoader.ImageListener() {
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+//                        if (holder.imageView.getTag(R.integer.tag1).toString().equals(model.getUrl())) {
+                        if (response.getBitmap() != null) {
+//                            int pos = Integer.parseInt(holder.imageView.getTag(R.integer.tag2).toString());
+//                            arrayProd.get(pos).setBitmap(response.getBitmap());
+                            holder.imageView.setImageBitmap(response.getBitmap());
+                        } else {
+                            holder.imageView.setImageResource(R.drawable.logo_round);
+                        }
+                       /* } else {
+                            holder.imageView.setImageResource(R.drawable.logo_round);
+                        }*/
+                    }
 
-                holder.imageView.setImageUrl(model.getUrl(), imageLoader);
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        holder.imageView.setImageResource(R.drawable.logo_round);
+                    }
+                });
+                holder.imageView.setImageUrl(model.getUrl(), holder.imageLoader);
+            } else {
+                holder.imageView.setImageBitmap(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,6 +173,9 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
 
             }
         });
+//            arrayProd.get(position).setLoadedOnce(true);
+//        }
+
     }
 
     public static void getLocationData(JSONArray jsonArray) {
@@ -165,11 +207,13 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
         params.put("companyId", modelClicked.getCompanyId());
         params.put("mallId", modelClicked.getMallId());
         params.put("vendor_id", modelClicked.getVendorId());
+        Log.d("Bundleget", params.toString());
         new InternetService(activity).downloadDataByPOST("fetchallproductdetails", params, "popup");
     }
 
     public static void displayProduct(JSONObject response) {
         jsonObject = response;
+        Log.d("DataForPopUp", response + " f");
         Intent intent = new Intent(activity, PopUpProduct.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("position", positionClicked);

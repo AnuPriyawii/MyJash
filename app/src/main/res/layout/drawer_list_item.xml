@@ -16,8 +16,6 @@
             android:id="@+id/img"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="12dp" />
 
         <TextView
@@ -27,8 +25,9 @@
             android:gravity="center_vertical"
             android:paddingRight="40dp"
             android:text="fgfdgfd"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textColor="#90000000" />
+            android:textColor="#000000"
+            android:textSize="17sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <View

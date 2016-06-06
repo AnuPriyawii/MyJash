@@ -56,12 +56,13 @@ public class PdfViewer extends Fragment {
 
 
         /*Set header*/
-        new HeaderAction(view,getActivity());
+        new HeaderAction(view, getActivity());
 
         progressBar.getProgressDrawable().setColorFilter(
                 Color.parseColor("#41c750"), android.graphics.PorterDuff.Mode.SRC_IN);
 
         download_file_url = getArguments().getString("url");
+        Log.d("download_file_url", download_file_url + "d");
         if (Util.haveNetworkConnection(getActivity()))
             downloadAndOpenPDF();
         else
@@ -193,12 +194,16 @@ public class PdfViewer extends Fragment {
     }
 
     void setTextError(final String message, final int color) {
-        getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                tv_loading.setTextColor(color);
-                tv_loading.setText(message);
-            }
-        });
+        try {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    tv_loading.setTextColor(color);
+                    tv_loading.setText(message);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

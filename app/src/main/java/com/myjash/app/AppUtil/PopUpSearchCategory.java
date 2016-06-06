@@ -79,44 +79,45 @@ public class PopUpSearchCategory extends Activity {
     }
 
     public static void refreshAdapter(JSONArray jsonArray) {
-        Log.d("category", category + " d");
-        arrProd.clear();
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
+        if (jsonArray.length() > 0) {
+            Log.d("category", jsonArray.length() + " d");
+            arrProd.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                ProductModel model = new ProductModel();
-                if (category.equals("Category")) {
-                    model.setName(jsonObject.getString("category_name"));
-                    model.setId(jsonObject.getInt("category_id"));
-                } else if (category.equals("Shop")) {
+                    ProductModel model = new ProductModel();
+                    if (category.equals("Category")) {
+                        model.setName(jsonObject.getString("category_name"));
+                        model.setId(jsonObject.getInt("category_id"));
+                    } else if (category.equals("Shop")) {
 
-                    model.setName(jsonObject.getString("v_name"));
-                    model.setId(jsonObject.getInt("v_id"));
-                } else if (category.equals("Brand")) {
+                        model.setName(jsonObject.getString("v_name"));
+                        model.setId(jsonObject.getInt("v_id"));
+                    } else if (category.equals("Brand")) {
 
-                    model.setName(jsonObject.getString("brand_name"));
-                    model.setId(jsonObject.getInt("id"));
-                } else if (category.equals("Mall")) {
+                        model.setName(jsonObject.getString("brand_name"));
+                        model.setId(jsonObject.getInt("id"));
+                    } else if (category.equals("Mall")) {
 
-                    model.setName(jsonObject.getString("ml_name"));
-                    model.setId(jsonObject.getInt("ml_id"));
-                } else if (category.equals("Location")) {
+                        model.setName(jsonObject.getString("ml_name"));
+                        model.setId(jsonObject.getInt("ml_id"));
+                    } else if (category.equals("Location")) {
 
-                    model.setName(jsonObject.getString("l_name"));
-                    model.setId(jsonObject.getInt("l_id"));
-                }
+                        model.setName(jsonObject.getString("l_name"));
+                        model.setId(jsonObject.getInt("l_id"));
+                    }
 
                 /*Check is already selected or not*/
-                for (int j = 0; j < Search.arrSearchCat.size(); j++) {
-                    if (Search.arrSearchCat.get(j).getCategory().equals(category)
-                            && Search.arrSearchCat.get(j).getItem().equals(model.getName())
-                            && Search.arrSearchCat.get(j).getId() == (model.getId())) {
-                        model.setChecked(true);
-                        break;
-                    } else
-                        model.setChecked(false);
-                }
+                    for (int j = 0; j < Search.arrSearchCat.size(); j++) {
+                        if (Search.arrSearchCat.get(j).getCategory().equals(category)
+                                && Search.arrSearchCat.get(j).getItem().equals(model.getName())
+                                && Search.arrSearchCat.get(j).getId() == (model.getId())) {
+                            model.setChecked(true);
+                            break;
+                        } else
+                            model.setChecked(false);
+                    }
                /* isExist = false;
                 for (int k = 0; k < arrProd.size(); k++) {
                     if (arrProd.get(k).getId() == model.getId()) {
@@ -128,32 +129,33 @@ public class PopUpSearchCategory extends Activity {
                     arrProd.add(model);
 //                }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        if (arrProd.size() > 0) {
-            lytMain.setVisibility(View.VISIBLE);
-            adapter = new ArrayAdapterPopUpItem(arrProd, activity, category);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity)
-            {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
+            if (arrProd.size() > 0) {
+                lytMain.setVisibility(View.VISIBLE);
+                adapter = new ArrayAdapterPopUpItem(arrProd, activity, category);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
 
-                @Override
-                public boolean canScrollHorizontally() {
-                    return false;
-                }
-            };
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
-            recyclerView.setAdapter(adapter);
-        } else {
+                    @Override
+                    public boolean canScrollHorizontally() {
+                        return false;
+                    }
+                };
+                recyclerView.setLayoutManager(mLayoutManager);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(1));
+                recyclerView.setAdapter(adapter);
+            } else {
+                activity.finish();
+            }
+        } else
             activity.finish();
-        }
     }
 
 }

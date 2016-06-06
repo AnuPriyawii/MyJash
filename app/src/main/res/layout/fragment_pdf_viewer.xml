@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.myjash.pdfreader.MainActivity">
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"

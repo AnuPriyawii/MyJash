@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@drawable/home_bg"/>
+            android:background="@drawable/home_bg" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewFlipper"
@@ -36,169 +36,175 @@
     </RelativeLayout>
 
 
-<ImageView
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_centerInParent="true"
-android:background="@drawable/logo_round"
-android:visibility="gone" />
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="0dp"
-android:layout_weight=".6"
-android:background="#fff"
-android:gravity="center"
-android:orientation="horizontal"
-android:weightSum="1">
-
-<LinearLayout
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:layout_weight=".8"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:weightSum="1">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/logo_round"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".6"
+        android:background="#fff"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".9"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <LinearLayout
-                android:id="@+id/lytProduct"
-                style="@style/CustomGridStyle">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".7"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/product" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Product"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytProduct"
+                        style="@style/CustomGridStyle">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/product" />
 
-            <LinearLayout
-                android:id="@+id/lytCategory"
-                style="@style/CustomGridStyle">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Product"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/category" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Category"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytCategory"
+                        style="@style/CustomGridStyle">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/category" />
 
-            <LinearLayout
-                android:id="@+id/lytBrand"
-                style="@style/CustomGridStyle">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Category"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/brand" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Brand"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytBrand"
+                        style="@style/CustomGridStyle">
 
-            </LinearLayout>
-        </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/brand" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Brand"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/lytCompany"
-                style="@style/CustomGridStyle">
+                    </LinearLayout>
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/company" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Company"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytCompany"
+                        style="@style/CustomGridStyle">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/company" />
 
-            <LinearLayout
-                android:id="@+id/lytMall"
-                style="@style/CustomGridStyle">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Shop"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/mall" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Mall"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytMall"
+                        style="@style/CustomGridStyle">
 
-            </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/mall" />
 
-            <LinearLayout
-                android:id="@+id/lytLocation"
-                style="@style/CustomGridStyle">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Mall"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/location" />
+                    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Location"
-                    android:textAppearance="@style/textStyle"
-                    android:textSize="13sp" />
+                    <LinearLayout
+                        android:id="@+id/lytLocation"
+                        style="@style/CustomGridStyle">
 
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/location" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Location"
+                            android:textAppearance="@style/textStyle"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
-</LinearLayout>
 
 
-    </LinearLayout>
+</LinearLayout>

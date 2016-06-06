@@ -1,9 +1,38 @@
 package com.myjash.app.model;
 
+import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+
 /**
  * Created by ubundu on 6/4/16.
  */
-public class ProductModel {
+public class ProductModel implements Serializable {
+    /*private static Parcelable.Creator CREATOR = new Creator() {
+        @Override
+        public Object createFromParcel(Parcel source) {
+            return null;
+        }
+
+        @Override
+        public Object[] newArray(int size) {
+            return new Object[0];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
+*/
     private String name;
     private String brand;
     private String place;
@@ -23,6 +52,24 @@ public class ProductModel {
     private String email;
     private String latitude;
     private String longitude;
+    private Bitmap bitmap;
+    private String vendorName;
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     public String getEmail() {
         return email;
@@ -214,4 +261,5 @@ public class ProductModel {
     public void setNewRate(String newRate) {
         this.newRate = newRate;
     }
+
 }

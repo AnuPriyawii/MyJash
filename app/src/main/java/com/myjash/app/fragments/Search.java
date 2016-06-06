@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myjash.app.AppUtil.HeaderAction;
 import com.myjash.app.AppUtil.PopUpSearchCategory;
+import com.myjash.app.AppUtil.Util;
 import com.myjash.app.AppUtil.VerticalSpaceItemDecoration;
 import com.myjash.app.activity.MainContainer;
 import com.myjash.app.R;
@@ -85,56 +88,67 @@ public class Search extends Fragment {
             }
         });
         btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                getDataForSearch();
-                productName = ((EditText) recyclerView.getChildAt(0).findViewById(R.id.edtProduct)).getText().toString();
+                                         @Override
+                                         public void onClick(View v) {
+                                             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                             getDataForSearch();
+                                            /* if (arrSearchCat.size() == 0) {
+                                                 Toast.makeText(getActivity(), "Please enter Data", Toast.LENGTH_SHORT).show();
+                                             } else
 
-                MainContainer.fragmentForBackPress = new Search();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", 0);
-                bundle.putString("type", "search");
-                Product fragobj = new Product();
-                fragobj.setArguments(bundle);
-                getActivity().getFragmentManager().beginTransaction()
-                        .replace(R.id.lytMainContainer, fragobj).addToBackStack(null)
-                        .commit();
-            }
-        });
+                                             {*/
+                                             productName = ((EditText) recyclerView.getChildAt(0).findViewById(R.id.edtProduct)).getText().toString();
+
+                                             MainContainer.fragmentForBackPress = new Search();
+                                             Bundle bundle = new Bundle();
+                                             bundle.putInt("id", 0);
+                                             bundle.putString("type", "search");
+                                             Product fragobj = new Product();
+                                             fragobj.setArguments(bundle);
+                                             getActivity().getFragmentManager().beginTransaction()
+                                                     .replace(R.id.lytMainContainer, fragobj).addToBackStack(null)
+                                                     .commit();
+//                                             }
+                                         }
+                                     }
+
+        );
         return view;
     }
 
-    public void getDataForSearch() {
+    public synchronized void getDataForSearch() {
         locatioId = null;
         categoryId = null;
         companyId = null;
         brandId = null;
         mallId = null;
         for (int i = 0; i < arrSearchCat.size(); i++) {
+            Log.d("CAtegoryGEtt", arrSearchCat.get(i).getCategory() + "d");
             if (arrSearchCat.get(i).getCategory().equals("Location")) {
                 if (locatioId != null)
                     locatioId = arrSearchCat.get(i).getId() + "";
                 else
                     locatioId = locatioId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Category")) {
-                if (categoryId!= null)
+                if (categoryId != null)
                     categoryId = arrSearchCat.get(i).getId() + "";
                 else
                     categoryId = categoryId + "," + arrSearchCat.get(i).getId() + "";
-            } else if (arrSearchCat.get(i).getCategory().equals("Company")) {
-                if (companyId!= null)
+                Log.d("CAtegoryGEtt", categoryId + "d");
+            } else if (arrSearchCat.get(i).getCategory().equals("Shop")) {
+                if (companyId != null)
                     companyId = arrSearchCat.get(i).getId() + "";
                 else
                     companyId = companyId + "," + arrSearchCat.get(i).getId() + "";
+                Log.d("CAtegoryGEtt", companyId + "d");
             } else if (arrSearchCat.get(i).getCategory().equals("Brand")) {
-                if (brandId!= null)
+                if (brandId != null)
                     brandId = arrSearchCat.get(i).getId() + "";
                 else
                     brandId = brandId + "," + arrSearchCat.get(i).getId() + "";
             } else if (arrSearchCat.get(i).getCategory().equals("Mall")) {
-                if (mallId!= null)
+                if (mallId != null)
                     mallId = arrSearchCat.get(i).getId() + "";
                 else
                     mallId = mallId + "," + arrSearchCat.get(i).getId() + "";
