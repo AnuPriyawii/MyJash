@@ -162,6 +162,7 @@ public class Product extends Fragment {
                         model.setMallId(jsonObject.getString("mall_id"));
                         model.setBrandId(jsonObject.getString("brand_id"));
                         model.setVendorId(jsonObject.getString("vendor_id"));
+                        model.setStartDate(jsonObject.getString("ofr_valid_from"));
                         arrProd.add(model);
 
                     } catch (JSONException e) {

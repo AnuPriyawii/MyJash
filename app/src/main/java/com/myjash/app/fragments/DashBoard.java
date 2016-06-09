@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +41,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static com.myjash.app.activity.MainContainer.fragmentManager;
 
 public class DashBoard extends Fragment {
@@ -55,6 +60,8 @@ public class DashBoard extends Fragment {
     public static int NUM_PAGES = 0;
     public static String[] arrUrl;
     public static String[] arrLink;
+
+    static int currentPage;
 
     @Nullable
     @Override
@@ -88,6 +95,39 @@ public class DashBoard extends Fragment {
         lytBrand.setOnClickListener(onClick);
         lytMenu.setOnClickListener(onClick);
 
+      /*  final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+
+            }
+        };
+
+
+        new Timer().schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 10, 50);*/
+        new CountDownTimer(120000, 8000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.d("Ticked", "dsfds");
+                currentPage = viewPager.getCurrentItem();
+                Log.d("Ticked", currentPage + "dsfds");
+                if (currentPage == NUM_PAGES - 1) {
+                    currentPage = -1;
+                }
+                Log.d("Ticked", currentPage+1 + "dsfds");
+                viewPager.setCurrentItem(currentPage+1, true);
+            }
+
+            public void onFinish() {
+            }
+        }.start();
+
 
         return view;
     }
@@ -107,16 +147,18 @@ public class DashBoard extends Fragment {
                 final String link = jsonObject.getString("ad_link");
 
                 arrUrl[i] = url;
-                arrLink[i]=link;
+                arrLink[i] = link;
 
             }
             /*View pager for flip*/
             viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
             mPagerAdapter = new ScreenSlidePagerAdapter(fragmentManager);
             viewPager.setAdapter(mPagerAdapter);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     public static Bitmap scaleBitmap(Bitmap bitmap, int wantedWidth, int wantedHeight) {

@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.activity.PopUpProduct;
@@ -56,7 +59,7 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
         public TextView txtPlace;
         public TextView txtNewRate;
         public TextView txtOldRate;
-        public NetworkImageView imageView;
+        public ImageView imageView;
         public int imgPosition;
         public ImageLoader imageLoader;
         View V;
@@ -72,7 +75,7 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
             txtNewRate = (TextView) view.findViewById(R.id.txtNewPrice);
             txtOldRate = (TextView) view.findViewById(R.id.txtOldPrice);
             txtPlace = (TextView) view.findViewById(R.id.txtPlace);
-            imageView = (NetworkImageView) view.findViewById(R.id.img);
+            imageView = (ImageView) view.findViewById(R.id.img);
         }
 
 
@@ -80,11 +83,12 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
 
     @Override
     public int getItemCount() {
-        if (num * 15 > arrayProd.size()) {
+       /* if (num * 15 > arrayProd.size()) {
             return arrayProd.size();
         } else {
             return num * 15;
-        }
+        }*/
+        return arrayProd.size();
     }
 
     @Override
@@ -112,10 +116,16 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
         holder.imageView.setTag(R.integer.tag2, position);
         if (model.getBitmap() != null) {
             holder.imageView.setImageBitmap(model.getBitmap());
-        }
+        } /*else {*/
+        Glide.with(activity).load(model.getUrl())
+                .thumbnail(1.f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.imageView);
+//        }
         /*Strike through*/
         holder.txtOldRate.setPaintFlags(holder.txtOldRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
+/*
         try {
             if (model.getUrl() != null) {
                 RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
@@ -132,9 +142,9 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
                         } else {
                             holder.imageView.setImageResource(R.drawable.logo_round);
                         }
-                       /* } else {
+                       *//* } else {
                             holder.imageView.setImageResource(R.drawable.logo_round);
-                        }*/
+                        }*//*
                     }
 
                     @Override
@@ -148,24 +158,12 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         holder.V.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                ArrayList<String> arrayList = new ArrayList<>();
-//                arrayList.add(arrayProd.get(position).getName());
-//                arrayList.add(arrayProd.get(position).getBrand());
-//                arrayList.add(arrayProd.get(position).getPlace());
-//                arrayList.add(arrayProd.get(position).getOldRate());
-//                arrayList.add(arrayProd.get(position).getNewRate());
-//                arrayList.add(arrayProd.get(position).getUrl());
-//                arrayList.add(arrayProd.get(position).getProdUrl());
-//                arrayList.add(arrayProd.get(position).getDescription());
-//                arrayList.add(position + "");
-
-                 /*load more details includes branches and mall*/
                 positionClicked = Integer.parseInt(v.getTag().toString());
                 modelClicked = Product.arrProd.get(positionClicked);
                 new InternetService(activity).downloadDataByGet("getAllActiveMallLocation", "popup", false);
@@ -173,8 +171,6 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
 
             }
         });
-//            arrayProd.get(position).setLoadedOnce(true);
-//        }
 
     }
 

@@ -43,86 +43,318 @@
                     android:gravity="center|top"
                     android:orientation="vertical">
 
+
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
 
-                        <RelativeLayout
-                            android:id="@+id/lytLogoMain"
+                        android:animateLayoutChanges="true"
+                        android:visibility="visible">
+
+
+                        <ImageView
+                            android:id="@+id/imgProduct"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:gravity="center"
-                            android:orientation="vertical"
+                            android:layout_marginBottom="50dp"
+                            android:scaleType="centerCrop"
+                            android:visibility="visible" />
 
-                            android:visibility="gone">
+                        <LinearLayout
+                            android:id="@+id/lytImg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="true"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
                             <LinearLayout
+                                android:id="@+id/lytLocation"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                                android:layout_height="35dp"
 
-                                <com.android.volley.toolbox.NetworkImageView
-                                    android:id="@+id/imgProduct"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginBottom="50dp"
-                                    android:background="@drawable/home_bg"
-                                    android:scaleType="centerCrop" />
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/black_underline"
+                                android:gravity="right|center"
 
+                                android:orientation="horizontal">
 
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@android:color/transparent"
+                                    android:drawableLeft="@drawable/location_gray"
+                                    android:drawablePadding="7dp"
+                                    android:drawableRight="@drawable/down_arrow"
+                                    android:onClick="viewLocation"
+                                    android:paddingLeft="5dp"
+                                    android:text="View Location" />
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:id="@+id/lytLogo"
+                            <View
+                                android:id="@+id/testView"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="bottom|center"
+                                android:layout_height="205dp"
+                                android:visibility="gone" />
+
+                            <RelativeLayout
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/yellow_round">
+
+                                <ImageView
+                                    android:id="@+id/imgLogo"
+                                    android:layout_width="88dp"
+                                    android:layout_height="88dp"
+                                    android:layout_centerInParent="true"
+                                    android:scaleType="fitXY" />
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/txtProductName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center"
+                                    android:text="sdfd"
+                                    android:textColor="#000"
+                                    android:textSize="19sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="#464646"
+                                        android:gravity="right"
+                                        android:orientation="vertical"
+                                        android:paddingBottom="6dp"
+                                        android:paddingRight="15dp"
+                                        android:paddingTop="6dp">
+
+
+                                        <TextView
+                                            android:id="@+id/txtOldPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="sdfd"
+                                            android:textColor="#fff"
+                                            android:textSize="22sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Old price"
+                                            android:textColor="#fff"
+                                            android:textSize="13sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="#41c64f"
+                                        android:gravity="left"
+                                        android:orientation="vertical"
+                                        android:paddingBottom="6dp"
+                                        android:paddingLeft="15dp"
+                                        android:paddingTop="6dp">
+
+
+                                        <TextView
+                                            android:id="@+id/txtNewPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="sdfd"
+                                            android:textColor="#fff"
+                                            android:textSize="22sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="New price"
+                                            android:textColor="#fff"
+                                            android:textSize="13sp" />
+                                    </LinearLayout>
+                                </LinearLayout>
 
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="bottom|center"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:gravity="center"
                                     android:orientation="vertical">
 
-                                    <RelativeLayout
-                                        android:layout_width="100dp"
-                                        android:layout_height="100dp"
-                                        android:layout_alignParentBottom="true"
-                                        android:layout_centerInParent="true"
-                                        android:layout_gravity="bottom|center"
-                                        android:background="@drawable/yellow_round">
+                                    <TextView
+                                        android:id="@+id/txtCompany"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="sdfd"
+                                        android:textColor="#99000000"
+                                        android:textSize="14sp" />
 
-                                        <com.myjash.app.AppUtil.CircularNetworkImageView
-                                            android:id="@+id/imgLogo"
-                                            android:layout_width="88dp"
-                                            android:layout_height="88dp"
-                                            android:layout_centerInParent="true"
-                                            android:scaleType="fitXY" />
-                                    </RelativeLayout>
+                                    <TextView
+                                        android:id="@+id/txtPlace"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="sdfd"
+                                        android:textColor="#99000000"
+                                        android:textSize="13sp" />
+
+                                    <TextView
+                                        android:id="@+id/txtDesc"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/black_underline"
+                                        android:textColor="#99000000"
+                                        android:textSize="13sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="left"
+                                        android:orientation="vertical">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:gravity="left">
+
+                                            <TextView
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:background="@drawable/calendar"
+                                                android:textColor="#99000000"
+                                                android:textSize="13sp" />
+
+                                            <TextView
+                                                android:id="@+id/txtStartDate"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="8dp"
+                                                android:textColor="#99000000"
+                                                android:textSize="13sp" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:gravity="left">
+
+                                            <TextView
+                                                android:layout_width="20dp"
+                                                android:layout_height="20dp"
+                                                android:background="@drawable/calendar"
+                                                android:textColor="#99000000"
+                                                android:textSize="13sp" />
+
+                                            <TextView
+                                                android:id="@+id/txtExpiryDate"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="8dp"
+                                                android:textColor="#99000000"
+                                                android:textSize="13sp" />
+                                        </LinearLayout>
+                                    </LinearLayout>
                                 </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lytBranches"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginTop="10dp"
+                                        android:background="#f7f4b1"
+                                        android:drawablePadding="20dp"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="BRANCHES"
+                                        android:textStyle="bold" />
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/recyclerBranches"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="#bcbaba"
+                                        android:focusable="false"
+
+                                        android:listSelector="#fff"
+                                        android:nestedScrollingEnabled="false"
+
+                                        android:scrollbars="none"
+                                        android:verticalSpacing="1dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lytMall"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginTop="10dp"
+                                        android:background="#f7f4b1"
+                                        android:drawablePadding="20dp"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:text="MALL"
+                                        android:textStyle="bold" />
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/recyclerMall"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="20dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_marginTop="5dp"
+                                        android:background="#bcbaba"
+                                        android:focusable="false"
+                                        android:horizontalSpacing="1dp"
+                                        android:listSelector="#fff"
+                                        android:nestedScrollingEnabled="false"
+                                        android:numColumns="1"
+                                        android:scrollbars="none"
+                                        android:verticalSpacing="1dp" />
+                                </LinearLayout>
+
                             </LinearLayout>
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:id="@+id/lytLocation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#a0ffffff"
-                            android:gravity="right"
-
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/location_gray"
-                                android:drawablePadding="7dp"
-                                android:drawableRight="@drawable/down_arrow"
-                                android:padding="7dp"
-                                android:text="View Location" />
                         </LinearLayout>
+
 
                     </RelativeLayout>
                     <!--  <ScrollView
@@ -131,239 +363,6 @@
                           android:scrollbars="none">-->
 
 
-                    <RelativeLayout
-                        android:id="@+id/lytLogoFirst"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="bottom|center"
-
-                        android:layout_margin="5dp"
-                        android:background="@drawable/yellow_round"
-                        android:visibility="visible">
-
-                        <com.myjash.app.AppUtil.CircularNetworkImageView
-                            android:id="@+id/imgLogoFirst"
-                            android:layout_width="88dp"
-                            android:layout_height="88dp"
-                            android:layout_centerInParent="true"
-                            android:focusable="true"
-                            android:scaleType="fitXY" />
-                    </RelativeLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtProductName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="sdfd"
-                            android:textColor="#000"
-                            android:textSize="19sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="#464646"
-                                android:gravity="right"
-                                android:orientation="vertical"
-                                android:paddingBottom="6dp"
-                                android:paddingRight="15dp"
-                                android:paddingTop="6dp">
-
-
-                                <TextView
-                                    android:id="@+id/txtOldPrice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="sdfd"
-                                    android:textColor="#fff"
-                                    android:textSize="22sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Old price"
-                                    android:textColor="#fff"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="#41c64f"
-                                android:gravity="left"
-                                android:orientation="vertical"
-                                android:paddingBottom="6dp"
-                                android:paddingLeft="15dp"
-                                android:paddingTop="6dp">
-
-
-                                <TextView
-                                    android:id="@+id/txtNewPrice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="sdfd"
-                                    android:textColor="#fff"
-                                    android:textSize="22sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="New price"
-                                    android:textColor="#fff"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/txtCompany"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="sdfd"
-                                android:textColor="#99000000"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/txtPlace"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="sdfd"
-                                android:textColor="#99000000"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/txtDesc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/black_underline"
-                                android:textColor="#99000000"
-                                android:textSize="13sp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:background="@drawable/calendar"
-                                    android:textColor="#99000000"
-                                    android:textSize="13sp" />
-
-                                <TextView
-                                    android:id="@+id/txtExpiryDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
-                                    android:textColor="#99000000"
-                                    android:textSize="13sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/lytBranches"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="10dp"
-                                android:background="#f7f4b1"
-                                android:drawablePadding="20dp"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="BRANCHES"
-                                android:textStyle="bold" />
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/recyclerBranches"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginTop="10dp"
-                                android:background="#bcbaba"
-                                android:focusable="false"
-
-                                android:listSelector="#fff"
-                                android:nestedScrollingEnabled="false"
-
-                                android:scrollbars="none"
-                                android:verticalSpacing="1dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/lytMall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginTop="10dp"
-                                android:background="#f7f4b1"
-                                android:drawablePadding="20dp"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="MALL"
-                                android:textStyle="bold" />
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/recyclerMall"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="20dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginTop="5dp"
-                                android:background="#bcbaba"
-                                android:focusable="false"
-                                android:horizontalSpacing="1dp"
-                                android:listSelector="#fff"
-                                android:nestedScrollingEnabled="false"
-                                android:numColumns="1"
-                                android:scrollbars="none"
-                                android:verticalSpacing="1dp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
                     <!-- </ScrollView>-->
                 </LinearLayout>
             </ScrollView>

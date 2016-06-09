@@ -17,6 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.R;
@@ -36,18 +38,23 @@ public class ScreenSlidePageFragmentForFlip extends Fragment {
                              Bundle savedInstanceState) {
         final ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_screen_slide_page_fragment_for_flip, container, false);
-        final NetworkImageView networkImageView = (NetworkImageView) rootView.findViewById(R.id.img);
+        final ImageView networkImageView = (ImageView) rootView.findViewById(R.id.img);
 
 
 //        String url = Flip.IMAGE_URL;
         String url = getArguments().getString("url");
         final String link = getArguments().getString("link");
         Log.d("ImageURl", url + " fragment");
-        RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
+        Glide.with(getActivity()).load(url)
+                .thumbnail(1.f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(networkImageView);
+    /*    RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
 
         ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(
                 LruBitmapCache.getCacheSize(getActivity())));
-        /* Loading image with placeholder and error image*/
+        *//* Loading image with placeholder and error image*//*
         imageLoader.get(url, new ImageLoader.ImageListener() {
             ImageView view = (ImageView) networkImageView;
 
@@ -71,7 +78,7 @@ public class ScreenSlidePageFragmentForFlip extends Fragment {
         });
 
 
-        networkImageView.setImageUrl(url, imageLoader);
+        networkImageView.setImageUrl(url, imageLoader);*/
 
         networkImageView.setOnClickListener(new View.OnClickListener() {
             @Override

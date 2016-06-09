@@ -1,5 +1,6 @@
 package com.myjash.app.activity;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,6 @@ public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
     Double latitude = 0.0;
     Double longitude = 0.0;
     String name;
-    private Marker marker;
     ArrayList<ProductModel> arrayList;
 
     @Override
@@ -43,17 +43,6 @@ public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
         lytMenu.setVisibility(View.GONE);
 
         arrayList = (ArrayList<ProductModel>) getIntent().getSerializableExtra("array");
-      /*  for (int i = 0; i < arrayList.size(); i++) {
-
-            String lat = arrayList.get(i).getLatitude() != null ? arrayList.get(0).getLatitude() : "0.0";
-            latitude = Double.parseDouble(lat);
-            String lng = arrayList.get(i).getLongitude() != null ? arrayList.get(0).getLongitude() : "0.0";
-            longitude = Double.parseDouble(lng);
-            name = arrayList.get(i).getName();
-        }*/
-//        latitude = Double.parseDouble(getIntent().getExtras().getString("latitude"));
-//        longitude = Double.parseDouble(getIntent().getExtras().getString("longitude"));
-//        name = getIntent().getStringExtra("name");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -92,17 +81,13 @@ public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(name)
-                        .snippet(arrayList.get(i).getAddress())
+                        .snippet(arrayList.get(i).getAddress() + "\nPhone:" + arrayList.get(i).getPhone())
                         .icon(BitmapDescriptorFactory
                                 .fromResource(icon)));
                 marker.showInfoWindow();
 
-                // Add a mMap in Sydney, Australia, and move the camera.
-
-//                mMap.addMarker(new MarkerOptions().position(latLng));
-
-
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
+//                mMap.setMapType(6);
                 mMap.setOnMarkerClickListener(new com.google.android.gms.maps.GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -113,16 +98,6 @@ public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-
-   /* protected void createMarker(double latitude, double longitude, String title, String snippet, int iconResID) {
-
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .anchor(0.5f, 0.5f)
-                .title(title)
-                .snippet(snippet)
-                .icon(BitmapDescriptorFactory.fromResource(iconResID)));
-    }*/
 
     private class CustomInfoWindowAdapter implements com.google.android.gms.maps.GoogleMap.InfoWindowAdapter {
 

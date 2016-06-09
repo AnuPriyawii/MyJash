@@ -1,10 +1,16 @@
 package com.myjash.app.activity;
 
+import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.GpsStatus;
 import android.os.AsyncTask;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,22 +19,32 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.myjash.app.AppUtil.CircularNetworkImageView;
 import com.myjash.app.AppUtil.HeaderAction;
 import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.AppUtil.MyGridView;
 import com.myjash.app.AppUtil.SlidingDrawer;
+import com.myjash.app.AppUtil.Util;
 import com.myjash.app.AppUtil.VerticalSpaceItemDecoration;
 import com.myjash.app.R;
 import com.myjash.app.adapter.ArrayAdapterBranches;
@@ -42,17 +58,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.myjash.app.AppUtil.CircleImageView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PopUpProduct extends AppCompatActivity {
     static Activity activity;
-    NetworkImageView imgProduct;
-    CircularNetworkImageView imgLogo;
-    CircularNetworkImageView imgLogoFirst;
-    RelativeLayout lytLogoMain;
-    RelativeLayout lytLogoFirst;
+    ImageView imgProduct;
+    ImageView imgLogo;
+    View testView;
     TextView txtProdName;
     TextView txtCompany;
     TextView txtPlace;
@@ -60,30 +76,27 @@ public class PopUpProduct extends AppCompatActivity {
     TextView txtNewPrice;
     TextView txtDesc;
     TextView txtEpiry;
-//    static LinearLayout lytBranches;
-//    static LinearLayout lytMall;
+    TextView txtStartDate;
     LinearLayout lytLocation;
 
     static RecyclerView recyclerBranch;
     static RecyclerView recyclerMall;
     ScrollView scrollView;
-    //    int position;
-//    ArrayList<String> arrayList;
     static ArrayList<ProductModel> arrBranches;
     static String[] arrMall;
     static ArrayAdapterBranches adapterBranches;
     static int postionClicked;
     static String locationId;
     static ProductModel model;
+    LinearLayout lytImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_up_product);
         activity = this;
-        imgLogo = (CircularNetworkImageView) findViewById(R.id.imgLogo);
-        imgLogoFirst = (CircularNetworkImageView) findViewById(R.id.imgLogoFirst);
-        imgProduct = (NetworkImageView) findViewById(R.id.imgProduct);
+        imgLogo = (ImageView) findViewById(R.id.imgLogo);
+        imgProduct = (ImageView) findViewById(R.id.imgProduct);
         txtCompany = (TextView) findViewById(R.id.txtCompany);
         txtNewPrice = (TextView) findViewById(R.id.txtNewPrice);
         txtOldPrice = (TextView) findViewById(R.id.txtOldPrice);
@@ -91,14 +104,13 @@ public class PopUpProduct extends AppCompatActivity {
         txtProdName = (TextView) findViewById(R.id.txtProductName);
         txtDesc = (TextView) findViewById(R.id.txtDesc);
         txtEpiry = (TextView) findViewById(R.id.txtExpiryDate);
-        lytLogoMain = (RelativeLayout) findViewById(R.id.lytLogoMain);
-        lytLogoFirst = (RelativeLayout) findViewById(R.id.lytLogoFirst);
+        txtStartDate = (TextView) findViewById(R.id.txtStartDate);
         recyclerBranch = (RecyclerView) findViewById(R.id.recyclerBranches);
         recyclerMall = (RecyclerView) findViewById(R.id.recyclerMall);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
-//        lytBranches = (LinearLayout) findViewById(R.id.lytBranches);
-//        lytMall = (LinearLayout) findViewById(R.id.lytMall);
         lytLocation = (LinearLayout) findViewById(R.id.lytLocation);
+        testView = (View) findViewById(R.id.testView);
+        lytImg = (LinearLayout) findViewById(R.id.lytImg);
 
 
         /*Set header*/
@@ -108,12 +120,13 @@ public class PopUpProduct extends AppCompatActivity {
         scrollView.smoothScrollTo(0, 0);
 
         arrBranches = new ArrayList<>();
-//        arrMall = new ArrayList<>();
 
         postionClicked = getIntent().getExtras().getInt("position");
-
-        model = Product.arrProd.get(postionClicked);
-//        arrayList = getIntent().getStringArrayListExtra("list");
+        if (Product.arrProd.size() > postionClicked) {
+            model = Product.arrProd.get(postionClicked);
+        } else {
+            model = new ProductModel();
+        }
 
 
         /*Set fontType*/
@@ -131,117 +144,106 @@ public class PopUpProduct extends AppCompatActivity {
         txtNewPrice.setText(model.getNewRate());
         txtDesc.setText(model.getDescription());
         txtEpiry.setText("Expiry date: " + model.getExprDate());
+        txtStartDate.setText("Start date: " + model.getStartDate());
 
 
-
-       /* *//*load more details includes branches and mall*//*
-        new InternetService(activity).downloadDataByGet("getAllActiveMallLocation", "popup", true);*/
+        displayLogo();
 
 
-
-        /*load product image*/
-        // Loading image with placeholder and error image
-        String prodUrl = model.getProdUrl();
-        if (prodUrl != null) {
-            RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
-            ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
-            ImageLoader.ImageListener listener = new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    Log.d("Responceget", response.toString());
-                    if (response.getBitmap() != null) {
-                        imgProduct.setImageBitmap(response.getBitmap());
-                        lytLogoMain.setVisibility(View.VISIBLE);
-                        lytLogoFirst.setVisibility(View.GONE);
-                        displayLogo(imgLogo);
-
-                    } else {
-                        lytLogoFirst.setVisibility(View.VISIBLE);
-                        lytLogoMain.setVisibility(View.GONE);
-                        displayLogo(imgLogoFirst);
-                    }
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    lytLogoMain.setVisibility(View.GONE);
-                    lytLogoFirst.setVisibility(View.VISIBLE);
-                    displayLogo(imgLogoFirst);
-                }
-            };
-            imageLoader.get(prodUrl, listener);
-            imgProduct.setImageUrl(prodUrl, imageLoader);
-        }
-
-        /*Display branch and mall*/
         getBranchDetails(ArrayAdapterProduct.jsonObject);
-        lytLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, GoogleMap.class);
-                intent.putExtra("array", arrBranches);
-                startActivity(intent);
-            }
-        });
     }
 
-    public void displayLogo(final CircularNetworkImageView imgLogo) {
+    public void viewLocation(View v) {
 
-        /*Load logo*/
-        RequestQueue mRequestQueue = AppController.getInstance().getRequestQueue();
-
-        ImageLoader imageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache());
-        // Loading image with placeholder and error image
-        ImageLoader.ImageListener listener = new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                Log.d("ResponcegetLogo", response.toString());
-                if (response.getBitmap() != null) {
-                    imgLogo.setVisibility(View.VISIBLE);
-                    imgLogo.setImageBitmap(response.getBitmap());
-                }
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        };
-
-        imageLoader.get(model.getUrl(), listener);
-        imgLogo.setImageUrl(model.getUrl(), imageLoader);
-    }
-
-
-  /*  public static void getLocationData(JSONArray jsonArray) {
-        Log.d("MallId", jsonArray + " f");
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                int mallId = jsonObject.getInt("ml_id");
-                if (model.getLocationId() != null)
-                    if (model.getLocationId().length() > 0)
-                        if (mallId == Integer.parseInt(model.getLocationId())) {
-                            locationId = jsonObject.getString("location_id");
-                            break;
-                        }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if (arrBranches.size() > 0) {
+            Intent intent = new Intent(activity, GoogleMap.class);
+            intent.putExtra("array", arrBranches);
+            startActivity(intent);
+        } else {
+            final Animation aAnim = new AlphaAnimation(1.0f, 0.0f);
+            aAnim.setDuration(50);
+            aAnim.setFillAfter(false);
+            v.startAnimation(aAnim);
+            Toast.makeText(activity, "Location data not found!!!", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    public void displayLogo() {
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("category_id", model.getCategoryId());
+        Glide.with(activity).load(model.getUrl())
+                .asBitmap()
+                .thumbnail(1.f)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new BitmapImageViewTarget(imgLogo) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(activity.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        imgLogo.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
+        Glide.with(activity).load(model.getProdUrl())
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new BitmapImageViewTarget(imgProduct) {
+                    @Override
+                    protected void setResource(final Bitmap resource) {
 
-        params.put("locationId", locationId);
-        params.put("product_name", model.getName());
-        params.put("brand_id", model.getBrandId());
-        params.put("companyId", model.getCompanyId());
-        params.put("mallId", model.getMallId());
-        params.put("vendor_id", model.getVendorId());
-        new InternetService(activity).downloadDataByPOST("fetchallproductdetails", params, "popup");
-    }*/
+                        if (resource != null) {
+                            testView.setVisibility(View.VISIBLE);
+                            imgProduct.setVisibility(View.GONE);
+                            imgProduct.setVisibility(View.VISIBLE);
+                            imgProduct.setImageBitmap(resource);
+                           /* LayoutTransition layoutTransition = lytImg.getLayoutTransition();
+                            layoutTransition.addTransitionListener(new LayoutTransition.TransitionListener() {
+                                @Override
+                                public void startTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {
+
+                                }
+
+                                @Override
+                                public void endTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {
+                                    imgProduct.setImageBitmap(resource);
+                                }
+                            });*/
+
+                        }
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
+                        imgProduct.setVisibility(View.GONE);
+                        testView.setVisibility(View.GONE);
+                      /*  Animation animation = AnimationUtils.loadAnimation(activity, R.anim.slide_out_to_top);
+                        animation.setFillAfter(true);
+                        animation.setRepeatCount(0);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                imgProduct.setVisibility(View.GONE);
+                                testView.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        imgProduct.startAnimation(animation);*/
+
+                    }
+                });
+    }
+
 
     public static void getBranchDetails(JSONObject response) {
         String mallList = "";
@@ -260,6 +262,7 @@ public class PopUpProduct extends AppCompatActivity {
                     model.setEmail(jArrBranch.getJSONObject(j).getString("email"));
                     model.setLatitude(jArrBranch.getJSONObject(j).getString("lat"));
                     model.setLongitude(jArrBranch.getJSONObject(j).getString("lng"));
+                    model.setPhone(jArrBranch.getJSONObject(j).getString("phone"));
                     arrBranches.add(model);
                 }
                  /*Add location of shop too*/
@@ -267,40 +270,13 @@ public class PopUpProduct extends AppCompatActivity {
                 model.setLatitude(jsonObject.getString("v_lat"));
                 model.setLongitude(jsonObject.getString("v_lng"));
                 model.setAddress(jsonObject.getString("v_address"));
+                model.setPhone(jsonObject.getString("v_phone"));
                 arrBranches.add(model);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.d("ArrBranchDetails", arrBranches.size() + " d");
-      /*  if (arrBranches.size() > 0) {
 
-//            lytBranches.setVisibility(View.VISIBLE);
-            adapterBranches = new ArrayAdapterBranches(activity, arrBranches);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
-            recyclerBranch.setLayoutManager(mLayoutManager);
-            recyclerBranch.setItemAnimator(new DefaultItemAnimator());
-            if (arrBranches.size() > 1) {
-                recyclerBranch.addItemDecoration(new VerticalSpaceItemDecoration(1));
-                recyclerBranch.setAdapter(adapterBranches);
-            }
-        }*/
-
-         /*Display mall*/
-       /* if (mallList != null) {
-            if (mallList.length() > 0) {
-                arrMall = mallList.split(",");
-                if (arrMall.length > 0) {
-//                    lytMall.setVisibility(View.VISIBLE);
-                    ArrayAdpterProductMall adapterMall = new ArrayAdpterProductMall(activity, arrMall);
-                    RecyclerView.LayoutManager mLayoutManager2 = new LinearLayoutManager(activity);
-                    recyclerMall.setLayoutManager(mLayoutManager2);
-                    recyclerMall.setItemAnimator(new DefaultItemAnimator());
-                    if (arrMall.length > 1)
-                        recyclerMall.addItemDecoration(new VerticalSpaceItemDecoration(1));
-                    recyclerMall.setAdapter(adapterMall);
-                }
-            }
-        }*/
     }
 }

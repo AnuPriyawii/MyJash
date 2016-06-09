@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class Category extends Fragment {
         arrSub = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                ArrayList<ProductModel> arrSubprod=new ArrayList<>();
+                ArrayList<ProductModel> arrSubprod = new ArrayList<>();
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                 ProductModel model = new ProductModel();
@@ -72,15 +73,18 @@ public class Category extends Fragment {
                 arrProd.add(model);
 
                 /*Sub category*/
-                if (jsonObject.getString("subCategory") != null) {
-                    arrSubprod = new ArrayList<>();
-                    JSONArray jsonSub = new JSONArray(jsonObject.getString("subCategory"));
-                    for (int j = 0; j < jsonSub.length(); j++) {
-                        JSONObject jsub = jsonSub.getJSONObject(j);
-                        model = new ProductModel();
-                        model.setName(jsub.getString("category_name"));
-                        model.setId(jsub.getInt("category_id"));
-                        arrSubprod.add(model);
+                if (jsonObject.has("subCategory")) {
+                    if (jsonObject.get("subCategory") != null) {
+                        arrSubprod = new ArrayList<>();
+                        JSONArray jsonSub = new JSONArray(jsonObject.getString("subCategory"));
+                        Log.d("SubSize", jsonObject.length() + " f");
+                        for (int j = 0; j < jsonSub.length(); j++) {
+                            JSONObject jsub = jsonSub.getJSONObject(j);
+                            model = new ProductModel();
+                            model.setName(jsub.getString("category_name"));
+                            model.setId(jsub.getInt("category_id"));
+                            arrSubprod.add(model);
+                        }
                     }
                 }
                 arrSub.add(arrSubprod);

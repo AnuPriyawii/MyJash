@@ -122,12 +122,18 @@ public class ArrayAdpterCategory extends RecyclerView.Adapter<ArrayAdpterCategor
         model1.setName(model.getName().trim() + 3);
         model1.setId(model.getId());
         arrProd.add(model1);*/
-
-        ArrayAdapterSubCategory adapterProduct = new ArrayAdapterSubCategory(arrSub.get(position), activity);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
-        holder.recyclerView.setLayoutManager(mLayoutManager);
-        holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        holder.recyclerView.setAdapter(adapterProduct);
+        if (arrSub.size() > position) {
+            if (arrSub.get(position).size() > 0) {
+                holder.img.setVisibility(View.VISIBLE);
+                ArrayAdapterSubCategory adapterProduct = new ArrayAdapterSubCategory(arrSub.get(position), activity);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity);
+                holder.recyclerView.setLayoutManager(mLayoutManager);
+                holder.recyclerView.setItemAnimator(new DefaultItemAnimator());
+                holder.recyclerView.setAdapter(adapterProduct);
+            } else {
+                holder.img.setVisibility(View.INVISIBLE);
+            }
+        }
 
         if (arrRecycler.contains(position)) {
             holder.recyclerView.setVisibility(View.VISIBLE);

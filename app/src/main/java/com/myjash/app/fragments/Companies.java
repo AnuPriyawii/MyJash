@@ -49,7 +49,7 @@ public class Companies extends Fragment {
         /////////////////////Download data
         Log.d("ArraySize", array.size() + " d");
 
-        new InternetService(getActivity()).loadDataFromCache("getAllActiveCompanies", "company");
+        new InternetService(getActivity()).loadDataFromCache("getAllActiveVendors", "company");
 
         /*ItemClickListener*/
         gridCompany.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,11 +81,11 @@ public class Companies extends Fragment {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String imgUrl = jsonObject.getString("logo");
-                imgUrl = InternetService.IMG_BASE_URL + "company/" + imgUrl;
+                imgUrl = InternetService.IMG_BASE_URL + "vendor/" + imgUrl;
                 /////////////set image url to array
                 CompanyModel model = new CompanyModel();
                 model.setUrl(imgUrl);
-                model.setId(jsonObject.getInt("cmp_id"));
+                model.setId(jsonObject.getInt("v_id"));
                 array.add(i, model);
             } catch (JSONException e) {
                 e.printStackTrace();

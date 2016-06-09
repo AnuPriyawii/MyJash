@@ -180,7 +180,8 @@ public class InternetService {
                                         Companies.loadImage(jsonArray);
                                     else if (from.equals("product")) {
                                         Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.lytMainContainer);
-                                        ((Product) fragment).refreshAdapter(jsonObject);
+                                        if (fragment instanceof Product)
+                                            ((Product) fragment).refreshAdapter(jsonObject);
                                     } else if (from.equals("brand"))
                                         Brand.refreshAdapter(jsonArray);
                                     else if (from.equals("category"))
