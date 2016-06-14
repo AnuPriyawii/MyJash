@@ -55,6 +55,33 @@ public class ProductModel implements Serializable {
     private Bitmap bitmap;
     private String vendorName;
     private String startDate;
+    private String arbic;
+    private String region;
+    private int regionId;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public int getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getArbic() {
+        return arbic;
+    }
+
+    public void setArbic(String arbic) {
+        this.arbic = arbic;
+    }
 
     public String getStartDate() {
         return startDate;

@@ -19,8 +19,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/home_bg">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -74,8 +73,27 @@
                         android:id="@+id/edtCity"
                         style="@style/CustomEdittext"
                         android:hint="City"
+                        android:singleLine="true"
+                        android:visibility="gone" />
+
+                    <Spinner
+                        android:id="@+id/spnrRegion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/edt_bg"
+                        android:hint="City"
                         android:singleLine="true" />
 
+                    <Spinner
+                        android:id="@+id/spnrLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+
+                        android:background="@drawable/edt_bg"
+                        android:hint="City"
+                        android:singleLine="true" />
 
                     <Button
                         android:id="@+id/btnSignUp"

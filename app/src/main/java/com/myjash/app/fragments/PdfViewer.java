@@ -145,38 +145,45 @@ public class PdfViewer extends Fragment {
 
             // connect
             urlConnection.connect();
+            int status = urlConnection.getResponseCode();
+            Log.d("StatusGet", "d" + String.valueOf(status) + "s");
+            if (!String.valueOf(status).startsWith("4") && !String.valueOf(status).startsWith("5")) {
+                // set the path where we want to save the file
+                File SDCardRoot = Environment.getExternalStorageDirectory();
+                // create a new file, to save the downloaded file
+                file = new File(SDCardRoot, dest_file_path);
 
-            // set the path where we want to save the file
-            File SDCardRoot = Environment.getExternalStorageDirectory();
-            // create a new file, to save the downloaded file
-            file = new File(SDCardRoot, dest_file_path);
+                FileOutputStream fileOutput = new FileOutputStream(file);
 
-            FileOutputStream fileOutput = new FileOutputStream(file);
+                // Stream used for reading the data from the internet
 
-            // Stream used for reading the data from the internet
-            InputStream inputStream = urlConnection.getInputStream();
+                Log.d("StatusGet", "d" + String.valueOf(status) + "s");
+                InputStream inputStream = urlConnection.getInputStream();
 
-            // this is the total size of the file which we are
-            // downloading
-            totalsize = urlConnection.getContentLength();
-            setText("Starting PDF download...");
+                // this is the total size of the file which we are
+                // downloading
+                totalsize = urlConnection.getContentLength();
+                setText("Starting PDF download...");
 
-            // create a buffer...
-            byte[] buffer = new byte[1024 * 1024];
-            int bufferLength = 0;
+                // create a buffer...
+                byte[] buffer = new byte[1024 * 1024];
+                int bufferLength = 0;
 
-            while ((bufferLength = inputStream.read(buffer)) > 0) {
-                fileOutput.write(buffer, 0, bufferLength);
-                downloadedSize += bufferLength;
-                per = ((float) downloadedSize / totalsize) * 100;
-                int totalPdfFileSize = totalsize / 1024;
-                setText("Downloading PDF " + (int) per
-                        + "% complete");
-                progressBar.setProgress((int) per);
+                while ((bufferLength = inputStream.read(buffer)) > 0) {
+                    fileOutput.write(buffer, 0, bufferLength);
+                    downloadedSize += bufferLength;
+                    per = ((float) downloadedSize / totalsize) * 100;
+                    int totalPdfFileSize = totalsize / 1024;
+                    setText("Downloading PDF " + (int) per
+                            + "% complete");
+                    progressBar.setProgress((int) per);
+                }
+                // close the output stream when complete //
+                fileOutput.close();
+                setText("Download Complete");
+            } else {
+                setText("PDF file is corrupted");
             }
-            // close the output stream when complete //
-            fileOutput.close();
-            setText("Download Complete");
 
         } catch (final MalformedURLException e) {
             setTextError("Malformed url",
@@ -187,7 +194,7 @@ public class PdfViewer extends Fragment {
                     Color.RED);
         } catch (final Exception e) {
             setTextError(
-                    "Failed to download image. Please check your internet connection.",
+                    "Failed to download pdf. Please check your internet connection.",
                     Color.RED);
         }
         return file;

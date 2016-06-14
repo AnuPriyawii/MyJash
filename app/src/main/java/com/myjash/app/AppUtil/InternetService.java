@@ -171,6 +171,8 @@ public class InternetService {
                         @Override
                         public void onResponse(JSONObject response) {
 
+                            Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.lytMainContainer);
+
                             try {
                                 JSONObject jsonObject = new JSONObject(response.toString());
                                 if (jsonObject.getString("response").contains("Success")) {
@@ -179,7 +181,6 @@ public class InternetService {
                                     if (from.equals("company"))
                                         Companies.loadImage(jsonArray);
                                     else if (from.equals("product")) {
-                                        Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.lytMainContainer);
                                         if (fragment instanceof Product)
                                             ((Product) fragment).refreshAdapter(jsonObject);
                                     } else if (from.equals("brand"))
@@ -200,6 +201,12 @@ public class InternetService {
                                         DashBoard.setViewFlipper(jsonObject);
                                     else if (from.equals("popup")) {
                                         ArrayAdapterProduct.getLocationData(jsonArray);
+                                    } else if (from.equals("region")) {
+                                        if (activity instanceof Register)
+                                            ((Register) activity).getRegion(jsonObject);
+                                    } else if (from.equals("location_register")) {
+                                        if (activity instanceof Register)
+                                            ((Register) activity).getLocation(jsonObject);
                                     }
                                 }
                             } catch (JSONException e) {

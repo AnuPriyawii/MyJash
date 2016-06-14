@@ -70,6 +70,7 @@ public class PopUpProduct extends AppCompatActivity {
     ImageView imgLogo;
     View testView;
     TextView txtProdName;
+    TextView txtProdNameArabic;
     TextView txtCompany;
     TextView txtPlace;
     TextView txtOldPrice;
@@ -102,6 +103,7 @@ public class PopUpProduct extends AppCompatActivity {
         txtOldPrice = (TextView) findViewById(R.id.txtOldPrice);
         txtPlace = (TextView) findViewById(R.id.txtPlace);
         txtProdName = (TextView) findViewById(R.id.txtProductName);
+        txtProdNameArabic = (TextView) findViewById(R.id.txtProductNameArabic);
         txtDesc = (TextView) findViewById(R.id.txtDesc);
         txtEpiry = (TextView) findViewById(R.id.txtExpiryDate);
         txtStartDate = (TextView) findViewById(R.id.txtStartDate);
@@ -138,6 +140,7 @@ public class PopUpProduct extends AppCompatActivity {
         new SlidingDrawer(this);
 
         txtProdName.setText(model.getName().toUpperCase());
+        txtProdNameArabic.setText(model.getArbic());
         txtCompany.setText(model.getBrand());
         txtPlace.setText(model.getPlace());
         txtOldPrice.setText(model.getOldRate());

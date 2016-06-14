@@ -22,6 +22,7 @@ import com.myjash.app.AppUtil.LruBitmapCache;
 import com.myjash.app.activity.PopUpProduct;
 import com.myjash.app.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,8 +109,9 @@ public class ArrayAdapterProduct extends RecyclerView.Adapter<ArrayAdapterProduc
         final ProductModel model = arrayProd.get(position);
 //        if (!model.isLoadedOnce()) {
         holder.txtPlace.setText(model.getPlace());
-        holder.txtOldRate.setText("AED " + model.getOldRate());
-        holder.txtNewRate.setText("AED " + model.getNewRate());
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        holder.txtOldRate.setText("AED " + decimalFormat.format(Double.parseDouble(model.getOldRate())));
+        holder.txtNewRate.setText("AED " + decimalFormat.format(Double.parseDouble(model.getNewRate())));
         holder.txtExprd.setText("Expiry date: " + model.getExprDate());
         holder.txtproduct.setText(model.getName());
         holder.imageView.setTag(R.integer.tag1, model.getUrl());

@@ -20,6 +20,10 @@ import com.myjash.app.AppUtil.InternetService;
 import com.myjash.app.AppUtil.Util;
 import com.myjash.app.R;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,6 +167,18 @@ public class Product extends Fragment {
                         model.setBrandId(jsonObject.getString("brand_id"));
                         model.setVendorId(jsonObject.getString("vendor_id"));
                         model.setStartDate(jsonObject.getString("ofr_valid_from"));
+
+                        String arabic = jsonObject.getString("desc_arabic");
+                        model.setArbic(arabic);
+                       /* try {
+                            final String s = new String(arabic.getBytes(), "UTF-8");
+
+                            Log.d("Arabic", s + "real " + arabic);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }*/
+
+
                         arrProd.add(model);
 
                     } catch (JSONException e) {
